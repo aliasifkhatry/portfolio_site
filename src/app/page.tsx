@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import BackgroundImages from './components/BackgroundImages';
-import Sidebar from './components/Sidebar';
-import About from './components/About';
-import './globals.css'; // Ensure this path points to your global stylesheet
-import HelloAnimation from './components/HelloAnimation';
+import { useEffect, useState } from "react";
+import BackgroundImages from "./components/BackgroundImages";
+import Sidebar from "./components/Sidebar";
+import About from "./components/About";
+import Projects from "./components/projects";
+import Contact from "./components/contact";
+import "./globals.css";
+import HelloAnimation from "./components/HelloAnimation";
 
 export default function Home() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -25,10 +27,10 @@ export default function Home() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -46,7 +48,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const handleMouseMove = (e: { clientX: number; clientY: number; }) => {
+    const handleMouseMove = (e: { clientX: number; clientY: number }) => {
       setCursorPosition({ x: e.clientX, y: e.clientY });
 
       const { innerWidth, innerHeight } = window;
@@ -63,10 +65,10 @@ export default function Home() {
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
@@ -75,10 +77,10 @@ export default function Home() {
       setIsCursorHidden(true);
     };
 
-    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener("touchstart", handleTouchStart);
 
     return () => {
-      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener("touchstart", handleTouchStart);
     };
   }, []);
 
@@ -87,15 +89,18 @@ export default function Home() {
       setIsDarkMode(event.detail.isDarkMode);
     };
 
-    window.addEventListener('themeChange', handleThemeChange as EventListener);
+    window.addEventListener("themeChange", handleThemeChange as EventListener);
 
     return () => {
-      window.removeEventListener('themeChange', handleThemeChange as EventListener);
+      window.removeEventListener(
+        "themeChange",
+        handleThemeChange as EventListener
+      );
     };
   }, []);
 
-  const bounceAnimation = bounceTrigger ? 'animate-bounce' : '';
-  const hamburgerIconColor = isDarkMode ? '#FFCF00' : 'black';
+  const bounceAnimation = bounceTrigger ? "animate-bounce" : "";
+  const hamburgerIconColor = isDarkMode ? "#FFCF00" : "black";
 
   if (isLoading) {
     return (
@@ -109,11 +114,15 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between px-[15%] md:px-24 pt-24 ${isDarkMode ? 'bg-black text-white' : 'bg-gray-100 text-black'} custom-cursor`}
+      className={`flex min-h-screen flex-col items-center justify-between px-[15%] md:px-24 pt-24 ${
+        isDarkMode ? "bg-black text-white" : "bg-gray-100 text-black"
+      } custom-cursor`}
       onMouseEnter={() => setIsHovering(false)}
     >
       <div
-        className={`cursor-circle ${isHovering ? 'cursor-hover' : ''} ${isCursorHidden ? 'hidden' : ''}`}
+        className={`cursor-circle ${isHovering ? "cursor-hover" : ""} ${
+          isCursorHidden ? "hidden" : ""
+        }`}
         style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px` }}
       ></div>
       <BackgroundImages />
@@ -135,22 +144,46 @@ export default function Home() {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <div className={`hamburger-icon ${isSidebarOpen ? 'active' : ''}`}>
-          <div className="line" style={{ backgroundColor: hamburgerIconColor }} />
-          <div className="line" style={{ backgroundColor: hamburgerIconColor }} />
-          <div className="line" style={{ backgroundColor: hamburgerIconColor }} />
+        <div className={`hamburger-icon ${isSidebarOpen ? "active" : ""}`}>
+          <div
+            className="line"
+            style={{ backgroundColor: hamburgerIconColor }}
+          />
+          <div
+            className="line"
+            style={{ backgroundColor: hamburgerIconColor }}
+          />
+          <div
+            className="line"
+            style={{ backgroundColor: hamburgerIconColor }}
+          />
         </div>
       </button>
       <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
-        <h1 className="text-4xl font-bold">Welcome to my Portfolio!</h1>
-        <p className="mt-4 text-lg">Scroll down to dive into my full journey!</p>
-        <RepeatComponent
-          times={100}
-          render={(index) => <br key={index} />}
-        />
+      
+      {/* Hero Section */}
+      <div id="home" className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
+        <h1 className="text-5xl font-bold">Hi, I'm Ali Asif</h1>
+        <p className="mt-4 text-lg">
+          Student | Developer | Designer | Notion Enthusiast
+        </p>
+        <RepeatComponent times={100} render={(index) => <br key={index} />} />
       </div>
-      {scrollPosition > 400 && <About />}
+
+      {/* About Section */}
+      <section id="about" className="min-h-screen flex items-center justify-center">
+        <About />
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="min-h-screen flex items-center justify-center">
+        <Projects />
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="min-h-screen flex items-center justify-center">
+        <Contact />
+      </section>
     </main>
   );
 }
@@ -161,11 +194,5 @@ interface RepeatComponentProps {
 }
 
 const RepeatComponent: React.FC<RepeatComponentProps> = ({ times, render }) => {
-  return (
-    <>
-      {Array.from({ length: times }).map((_, index) =>
-        render(index)
-      )}
-    </>
-  );
+  return <>{Array.from({ length: times }).map((_, index) => render(index))}</>;
 };
