@@ -163,7 +163,7 @@ export default function Home() {
       
       {/* Hero Section */}
       <div id="home" className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
-        <h1 className="text-5xl font-bold">Hi, I'm Ali Asif</h1>
+        <h1 className="text-5xl font-bold">Hi, I&apos;m Ali Asif</h1>
         <p className="mt-4 text-lg">
           Student | Developer | Designer | Notion Enthusiast
         </p>
