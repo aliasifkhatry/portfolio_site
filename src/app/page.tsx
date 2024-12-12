@@ -171,17 +171,17 @@ export default function Home() {
       </div>
 
       {/* About Section */}
-      <section id="about" className="min-h-screen flex items-center justify-center">
+      <section id="about" className="min-h-screen flex items-center justify-center z-10">
         <About />
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="min-h-screen flex items-center justify-center">
+      <section id="projects" className="min-h-screen flex items-center justify-center z-10">
         <Projects />
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="min-h-screen flex items-center justify-center">
+      <section id="contact" className="min-h-screen flex items-center justify-center z-10">
         <Contact />
       </section>
     </main>
