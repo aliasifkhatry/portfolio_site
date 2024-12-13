@@ -162,12 +162,11 @@ export default function Home() {
       <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
       
       {/* Hero Section */}
-      <div id="home" className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
+      <div id="home" className="relative z-10 flex flex-col items-center min-h-screen text-center pt-20">
         <h1 className="text-5xl font-bold">Hi, I&apos;m Ali Asif</h1>
         <p className="mt-4 text-lg">
           Student | Developer | Designer | Notion Enthusiast
         </p>
-        <RepeatComponent times={100} render={(index) => <br key={index} />} />
       </div>
 
       {/* About Section */}

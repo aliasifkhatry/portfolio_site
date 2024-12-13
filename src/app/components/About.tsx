@@ -78,8 +78,8 @@ const About: React.FC<AboutProps> = ({
             {/* Subtle background glow effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
             
-            {section.title && <h2 className="text-7xl font-bold mb-2 relative z-10 text-white text-left">{section.title}</h2>}
-            {section.description && <p className="text-left relative z-10 text-white/80">{section.description}</p>}
+            {section.title && <h2 className="text-7xl font-bold mb-2 relative z-10 text-white text-left pr-96">{section.title}</h2>}
+            {section.description && <p className="text-left relative z-10 text-white/80 pr-64">{section.description}</p>}
           </div>
         ))}
       </div>
