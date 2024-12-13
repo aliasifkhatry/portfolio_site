@@ -1,197 +1,190 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import BackgroundImages from "./components/BackgroundImages";
-import Sidebar from "./components/Sidebar";
-import About from "./components/About";
-import Projects from "./components/projects";
-import Contact from "./components/contact";
-import "./globals.css";
-import HelloAnimation from "./components/HelloAnimation";
+import React from "react";
 
-export default function Home() {
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [bounceTrigger, setBounceTrigger] = useState(true);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-  const [isCursorHidden, setIsCursorHidden] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+interface AboutProps {
+  firstRowHeight?: number;
+  secondRowHeight?: number;
+  thirdRowHeight?: number;
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollPosition(window.scrollY);
-      if (window.scrollY === 0) {
-        setBounceTrigger(true);
-      }
-    };
+const About: React.FC<AboutProps> = ({ 
+  firstRowHeight = 200, 
+  secondRowHeight = 420,
+  thirdRowHeight = 140
+}) => {
+  const firstRowSections = [
+    {
+      title: "",
+      description: "",
+      image: "/me_bw.png" // Replace with your actual image path
+    },
+    {
+      title: "Ali Asif",
+      description: "Student | Developer | Designer | Notion Enthusiast", 
+    },
+    {
+      title: "",
+      description: "",
+    }
+  ];
 
-    window.addEventListener("scroll", handleScroll);
+  const secondRowRightSections = [
+    {
+      title: "Top Right",
+      description: "First right section",
+    },
+    {
+      title: "Bottom Right",
+      description: "Second right section",
+    }
+  ];
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setBounceTrigger(false), 1000);
-    return () => clearTimeout(timer);
-  }, [bounceTrigger]);
-
-  useEffect(() => {
-    const loadingTimeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(loadingTimeout);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: { clientX: number; clientY: number }) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-
-      const { innerWidth, innerHeight } = window;
-      const edgeThreshold = 10;
-      if (
-        e.clientX < edgeThreshold ||
-        e.clientX > innerWidth - edgeThreshold ||
-        e.clientY < edgeThreshold ||
-        e.clientY > innerHeight - edgeThreshold
-      ) {
-        setIsCursorHidden(true);
-      } else {
-        setIsCursorHidden(false);
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleTouchStart = () => {
-      setIsCursorHidden(true);
-    };
-
-    window.addEventListener("touchstart", handleTouchStart);
-
-    return () => {
-      window.removeEventListener("touchstart", handleTouchStart);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleThemeChange = (event: CustomEvent) => {
-      setIsDarkMode(event.detail.isDarkMode);
-    };
-
-    window.addEventListener("themeChange", handleThemeChange as EventListener);
-
-    return () => {
-      window.removeEventListener(
-        "themeChange",
-        handleThemeChange as EventListener
-      );
-    };
-  }, []);
-
-  const bounceAnimation = bounceTrigger ? "animate-bounce" : "";
-  const hamburgerIconColor = isDarkMode ? "#FFCF00" : "black";
-
-  if (isLoading) {
-    return (
-      <div className="h-full min-h-screen flex items-center justify-center">
-        <div className="h-full w-full min-h-[500px] flex justify-center items-center">
-          <HelloAnimation />
-        </div>
-      </div>
-    );
-  }
+  const thirdRowSections = [
+    {},
+    {},
+    {},
+    {},
+    {}
+  ];
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between px-[15%] md:px-24 pt-24 ${
-        isDarkMode ? "bg-black text-white" : "bg-gray-100 text-black"
-      } custom-cursor`}
-      onMouseEnter={() => setIsHovering(false)}
-    >
-      <div
-        className={`cursor-circle ${isHovering ? "cursor-hover" : ""} ${
-          isCursorHidden ? "hidden" : ""
-        }`}
-        style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px` }}
-      ></div>
-      <BackgroundImages />
-      <div
-        className={`logo fixed top-7 left-10 z-20 ${bounceAnimation}`}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
+    <div className="w-screen h-screen flex flex-col items-center justify-start pt-8 bg-transparent p-4 space-y-4 mt-20 overflow-hidden">
+      {/* First Row */}
+      <div 
+        className="flex space-x-4 w-full" 
+        style={{ height: `${firstRowHeight}px` }}
       >
-        <img
-          src={isDarkMode ? "/logo1.png" : "/logo2.png"}
-          alt="Logo"
-          width={80}
-          height={45}
-        />
+        {firstRowSections.map((section, index) => (
+          <div
+            key={index}
+            className={`
+              ${index === 0 ? 'w-1/6 relative' : index === 1 ? 'w-1/2' : 'w-1/3'}
+              flex
+              flex-col
+              items-center
+              justify-center
+              p-4
+              rounded-xl
+              shadow-2xl
+              h-full
+              backdrop-blur-2xl
+              bg-white/10
+              border
+              border-white/20
+              overflow-hidden
+            `}
+          >
+            {/* First section with image */}
+            {index === 0 && section.image && (
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full h-full flex items-end justify-center">
+                <img 
+                  src={section.image} 
+                  alt="Profile" 
+                  className="max-w-full max-h-full object-contain object-bottom" 
+                  style={{ 
+                    transform: 'translateY(20%)', // Slightly overflow from the bottom
+                    maxHeight: '110%', // Allow slight overflow
+                    width: 'auto' 
+                  }}
+                />
+              </div>
+            )}
+            
+            {/* Subtle background glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+            
+            {section.title && <h2 className="text-7xl font-bold mb-2 relative z-10 text-white text-left pr-96">{section.title}</h2>}
+            {section.description && <p className="text-left relative z-10 text-white/80 pr-64">{section.description}</p>}
+          </div>
+        ))}
       </div>
-      <button
-        className={`hamburger fixed top-12 right-10 z-50 ${bounceAnimation}`}
-        onClick={() => setSidebarOpen(!isSidebarOpen)}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
+
+      {/* Second Row */}
+      <div 
+        className="flex space-x-4 w-full" 
+        style={{ height: `${secondRowHeight}px` }}
       >
-        <div className={`hamburger-icon ${isSidebarOpen ? "active" : ""}`}>
-          <div
-            className="line"
-            style={{ backgroundColor: hamburgerIconColor }}
-          />
-          <div
-            className="line"
-            style={{ backgroundColor: hamburgerIconColor }}
-          />
-          <div
-            className="line"
-            style={{ backgroundColor: hamburgerIconColor }}
-          />
+        <div
+          className="w-1/6 flex flex-col items-center justify-center p-4 rounded-xl shadow-2xl h-full backdrop-blur-2xl bg-white/10 border border-white/20 relative overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+          <h2 className="text-xl font-bold mb-2 relative z-10 text-white">Square Box</h2>
+          <p className="text-center relative z-10 text-white/80">First section - Square shaped</p>
         </div>
-      </button>
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-      
-      {/* Hero Section */}
-      <div id="home" className="relative z-10 flex flex-col items-center min-h-screen text-center pt-20">
-        <h1 className="text-5xl font-bold">Hi, I&apos;m Ali Asif</h1>
-        <p className="mt-4 text-lg">
-          Student | Developer | Designer | Notion Enthusiast
-        </p>
+
+        <div
+          className="w-1/2 flex flex-col items-center justify-center p-4 rounded-xl shadow-2xl h-full backdrop-blur-2xl bg-white/10 border border-white/20 relative overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+          <h2 className="text-xl font-bold mb-2 relative z-10 text-white">Wide Rectangle</h2>
+          <p className="text-center relative z-10 text-white/80">Center section - Wide rectangle</p>
+        </div>
+
+        <div
+          className="w-1/3 flex flex-col space-y-4 h-full"
+        >
+          {secondRowRightSections.map((section, index) => (
+            <div
+              key={index}
+              className={`
+                w-full
+                flex
+                flex-col
+                items-center
+                justify-center
+                p-4
+                rounded-xl
+                shadow-2xl
+                ${index === 0 ? 'h-1/2' : 'h-1/2'}
+                backdrop-blur-2xl
+                bg-white/10
+                border
+                border-white/20
+                relative
+                overflow-hidden
+              `}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+              {section.title && <h2 className="text-xl font-bold mb-2 relative z-10 text-white">{section.title}</h2>}
+              {section.description && <p className="text-center relative z-10 text-white/80">{section.description}</p>}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* About Section */}
-      <section id="about" className="min-h-screen flex items-center justify-center z-10">
-        <About />
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="min-h-screen flex items-center justify-center z-10">
-        <Projects />
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="min-h-screen flex items-center justify-center z-10">
-        <Contact />
-      </section>
-    </main>
+      {/* Third Row */}
+      <div 
+        className="flex space-x-4 w-full" 
+        style={{ height: `${thirdRowHeight}px` }}
+      >
+        {thirdRowSections.map((section, index) => (
+          <div
+            key={index}
+            className={`
+              w-1/5
+              flex
+              flex-col
+              items-center
+              justify-center
+              p-4
+              rounded-xl
+              shadow-2xl
+              h-full
+              backdrop-blur-2xl
+              bg-white/10
+              border
+              border-white/20
+              relative
+              overflow-hidden
+            `}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
-}
-
-interface RepeatComponentProps {
-  times: number;
-  render: (index: number) => JSX.Element;
-}
-
-const RepeatComponent: React.FC<RepeatComponentProps> = ({ times, render }) => {
-  return <>{Array.from({ length: times }).map((_, index) => render(index))}</>;
 };
+
+export default About;
