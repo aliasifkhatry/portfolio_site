@@ -10,21 +10,21 @@ interface AboutProps {
 
 const About: React.FC<AboutProps> = ({ 
   firstRowHeight = 200, 
-  secondRowHeight = 400,
-  thirdRowHeight = 125
+  secondRowHeight = 420,
+  thirdRowHeight = 140
 }) => {
   const firstRowSections = [
     {
-      title: "Square Box",
-      description: "First section - Square shaped",
+      title: "",
+      description: "",
     },
     {
-      title: "Wide Rectangle",
-      description: "Center section - Wide rectangle", 
+      title: "Ali Asif",
+      description: "Student | Developer | Designer | Notion Enthusiast", 
     },
     {
-      title: "Narrow Rectangle",
-      description: "Last section - Narrow rectangle",
+      title: "",
+      description: "",
     }
   ];
 
@@ -78,8 +78,8 @@ const About: React.FC<AboutProps> = ({
             {/* Subtle background glow effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
             
-            {section.title && <h2 className="text-xl font-bold mb-2 relative z-10 text-white">{section.title}</h2>}
-            {section.description && <p className="text-center relative z-10 text-white/80">{section.description}</p>}
+            {section.title && <h2 className="text-7xl font-bold mb-2 relative z-10 text-white text-left">{section.title}</h2>}
+            {section.description && <p className="text-left relative z-10 text-white/80">{section.description}</p>}
           </div>
         ))}
       </div>
