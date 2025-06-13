@@ -171,7 +171,7 @@ export default function Home() {
 
       {/* About Section */}
       <section id="about" className="min-h-screen flex items-center justify-center z-10">
-        <About />
+        <About isDarkMode={isDarkMode} />
       </section>
 
       {/* Projects Section */}

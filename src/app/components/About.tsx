@@ -10,9 +10,26 @@ interface AboutProps {
   firstRowHeight?: number;
   secondRowHeight?: number;
   thirdRowHeight?: number;
+  isDarkMode?: boolean; // Theme prop
 }
 
-const About: React.FC<AboutProps> = () => {
+const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
+  // Conditional styling helpers
+  const getBoxClasses = (baseClasses: string = "") => {
+    return `${baseClasses} ${
+      isDarkMode 
+        ? 'bg-white/10 border-white/20 text-white' 
+        : 'bg-black/30 border-black/20 text-white'
+    }`;
+  };
+
+  const getGradientClasses = () => {
+    return isDarkMode 
+      ? 'bg-gradient-to-br from-white/10 to-transparent opacity-20' 
+      : 'bg-gradient-to-br from-black/10 to-transparent opacity-30';
+  };
+
+  // Section Data Arrays (✅ Now included)
   const firstRowSections = [
     { title: "Ali Asif", description: "" },
     { title: "", description: "Student | Developer | Designer | Notion Enthusiast" },
@@ -21,8 +38,8 @@ const About: React.FC<AboutProps> = () => {
   ];
 
   const secondRowLeftTopSections = [
-    {title: "Top Left 1", description: "First half of top left"},
-    {title: "Top Left 2", description: "Second half of top left"},
+    { title: "Top Left 1", description: "First half of top left" },
+    { title: "Top Left 2", description: "Second half of top left" },
   ];
 
   const secondRowLeftBottomSections = [
@@ -50,29 +67,33 @@ const About: React.FC<AboutProps> = () => {
         {firstRowSections.map((section, index) => (
           <div 
             key={index} 
-            className="w-full p-4 rounded-2xl bg-white/10 border border-white/20 min-h-[100px]"
+            className={getBoxClasses("w-full p-4 rounded-2xl min-h-[100px]")}
           >
             {section.title && <h2 className="text-white text-xl mb-2">{section.title}</h2>}
             {section.description && <p className="text-white/80">{section.description}</p>}
           </div>
         ))}
-
+        
         {/* Second Row Sections */}
-        {[...secondRowLeftTopSections, ...secondRowLeftBottomSections, ...secondRowRightSections].map((section, index) => (
+        {[
+          ...secondRowLeftTopSections,
+          ...secondRowLeftBottomSections,
+          ...secondRowRightSections
+        ].map((section, index) => (
           <div 
             key={index} 
-            className="w-full p-4 rounded-2xl bg-white/10 border border-white/20 min-h-[100px]"
+            className={getBoxClasses("w-full p-4 rounded-2xl min-h-[100px]")}
           >
             {section.title && <h2 className="text-white text-xl mb-2">{section.title}</h2>}
             {section.description && <p className="text-white/80">{section.description}</p>}
           </div>
         ))}
-
+        
         {/* Third Row Sections */}
         {thirdRowSections.map((section, index) => (
           <div 
             key={index} 
-            className="w-full p-4 rounded-2xl bg-white/10 border border-white/20 min-h-[100px]"
+            className={getBoxClasses("w-full p-4 rounded-2xl min-h-[100px]")}
           >
             {section.title && <h2 className="text-white text-xl mb-2">{section.title}</h2>}
             {section.description && <p className="text-white/80">{section.description}</p>}
@@ -82,7 +103,7 @@ const About: React.FC<AboutProps> = () => {
     </div>
   );
 
-  // Desktop Layout Component with responsive heights but fixed width
+  // Desktop Layout Component
   const DesktopLayout = () => (
     <div className="hidden sm:block w-screen min-h-screen flex flex-col items-center justify-start p-4 space-y-4 mt-20 overflow-y-auto overflow-x-hidden">
       <div className="w-screen max-w-full flex flex-col space-y-4">
@@ -93,9 +114,9 @@ const About: React.FC<AboutProps> = () => {
             {firstRowSections.slice(0, 2).map((section, index) => (
               <div
                 key={index}
-                className="flex-grow flex flex-col items-center justify-center p-4 rounded-2xl shadow-2xl backdrop-blur-2xl bg-white/10 border border-white/20 relative overflow-hidden min-h-[80px]"
+                className={getBoxClasses("flex-grow flex flex-col items-center justify-center p-4 rounded-2xl   backdrop-blur-2xl relative overflow-hidden min-h-[80px]")}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+                <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
                 {section.title && (
                   <h2 className="text-4xl lg:text-7xl font-bold mb-2 relative z-10 text-white text-left">
                     {section.title}
@@ -109,11 +130,11 @@ const About: React.FC<AboutProps> = () => {
               </div>
             ))}
           </div>
-
+          
           {/* Center Section */}
           <div className="w-1/2 h-full">
-            <div className="h-full flex flex-col items-center justify-center p-4 rounded-2xl shadow-2xl backdrop-blur-2xl bg-white/10 border border-white/20 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+            <div className={getBoxClasses("h-full flex flex-col items-center justify-center p-4 rounded-2xl   backdrop-blur-2xl relative overflow-hidden")}>
+              <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
               {firstRowSections[2].title && (
                 <h2 className="text-xl font-bold mb-2 relative z-10 text-white text-left">
                   {firstRowSections[2].title}
@@ -126,11 +147,11 @@ const About: React.FC<AboutProps> = () => {
               )}
             </div>
           </div>
-
+          
           {/* Right Section */}
           <div className="w-1/4 h-full">
-            <div className="h-full flex flex-col items-center justify-center p-4 rounded-2xl shadow-2xl backdrop-blur-2xl bg-white/10 border border-white/20 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+            <div className={getBoxClasses("h-full flex flex-col items-center justify-center p-4 rounded-2xl   backdrop-blur-2xl relative overflow-hidden")}>
+              <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
               {firstRowSections[3].title && (
                 <h2 className="text-xl font-bold mb-2 relative z-10 text-white text-left">
                   {firstRowSections[3].title}
@@ -144,7 +165,7 @@ const About: React.FC<AboutProps> = () => {
             </div>
           </div>
         </div>
-
+        
         {/* Second Row */}
         <div className="flex space-x-4 w-full h-[45vh] min-h-[300px]">
           {/* Left Column */}
@@ -153,9 +174,9 @@ const About: React.FC<AboutProps> = () => {
               {secondRowLeftTopSections.map((section, index) => (
                 <div
                   key={index}
-                  className="flex-grow flex flex-col items-center justify-center p-4 rounded-2xl shadow-2xl backdrop-blur-2xl bg-white/10 border border-white/20 relative overflow-hidden"
+                  className={getBoxClasses("flex-grow flex flex-col items-center justify-center p-4 rounded-2xl   backdrop-blur-2xl relative overflow-hidden")}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+                  <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
                   {section.title && (
                     <h2 className="text-xl font-bold mb-2 relative z-10 text-white">
                       {section.title}
@@ -173,9 +194,9 @@ const About: React.FC<AboutProps> = () => {
               {secondRowLeftBottomSections.map((section, index) => (
                 <div
                   key={index}
-                  className="h-full flex flex-col items-center justify-center p-4 rounded-2xl shadow-2xl backdrop-blur-2xl bg-white/10 border border-white/20 relative overflow-hidden"
+                  className={getBoxClasses("h-full flex flex-col items-center justify-center p-4 rounded-2xl   backdrop-blur-2xl relative overflow-hidden")}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+                  <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
                   {section.title && (
                     <h2 className="text-xl font-bold mb-2 relative z-10 text-white">
                       {section.title}
@@ -190,10 +211,10 @@ const About: React.FC<AboutProps> = () => {
               ))}
             </div>
           </div>
-
+          
           {/* Center Section */}
-          <div className="w-1/2 flex flex-col items-center justify-center p-4 rounded-2xl shadow-2xl backdrop-blur-2xl bg-white/10 border border-white/20 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+          <div className={getBoxClasses("w-1/2 flex flex-col items-center justify-center p-4 rounded-2xl   backdrop-blur-2xl relative overflow-hidden")}>
+            <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
             <h2 className="text-xl font-bold mb-2 relative z-10 text-white">
               Wide Rectangle
             </h2>
@@ -201,15 +222,15 @@ const About: React.FC<AboutProps> = () => {
               Center section - Wide rectangle
             </p>
           </div>
-
+          
           {/* Right Column */}
           <div className="w-1/4 flex flex-col space-y-4 h-full">
             {secondRowRightSections.map((section, index) => (
               <div
                 key={index}
-                className="flex-grow flex flex-col items-center justify-center p-4 rounded-2xl shadow-2xl backdrop-blur-2xl bg-white/10 border border-white/20 relative overflow-hidden min-h-[140px]"
+                className={getBoxClasses("flex-grow flex flex-col items-center justify-center p-4 rounded-2xl   backdrop-blur-2xl relative overflow-hidden min-h-[140px]")}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+                <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
                 {section.title && (
                   <h2 className="text-xl font-bold mb-2 relative z-10 text-white">
                     {section.title}
@@ -224,15 +245,15 @@ const About: React.FC<AboutProps> = () => {
             ))}
           </div>
         </div>
-
+        
         {/* Third Row */}
         <div className="flex space-x-4 w-full h-[15vh] min-h-[120px]">
           {thirdRowSections.map((section, index) => (
             <div 
               key={index} 
-              className="w-1/4 flex flex-col items-center justify-center p-4 rounded-2xl shadow-2xl backdrop-blur-2xl bg-white/10 border border-white/20 relative overflow-hidden"
+              className={getBoxClasses("w-1/4 flex flex-col items-center justify-center p-4 rounded-2xl   backdrop-blur-2xl relative overflow-hidden")}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-20 pointer-events-none"></div>
+              <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
               <h2 className="text-xl font-bold mb-2 relative z-10 text-white">
                 {section.title}
               </h2>
