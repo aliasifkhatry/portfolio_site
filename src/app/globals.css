@@ -226,3 +226,10 @@ body {
     transform: translateX(20px);
   }
 }
+
+.invisible-text {
+  color: transparent;
+  min-height: 1.5em;
+  user-select: none;
+  pointer-events: none;
+}
