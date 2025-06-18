@@ -190,7 +190,7 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
 
   // Desktop Layout Component
   const DesktopLayout = () => (
-    <div className="hidden sm:block w-screen min-h-screen flex flex-col items-center justify-start p-4 space-y-4 mt-20 overflow-y-auto overflow-x-hidden">
+    <div className="hidden sm:block w-screen min-h-screen flex-col items-center justify-start p-4 space-y-4 mt-20 overflow-y-auto overflow-x-hidden">
       <div className="w-screen max-w-full flex flex-col space-y-4">
         {/* First Row */}
         <div className="flex space-x-4 w-full h-[25vh] min-h-[180px]">

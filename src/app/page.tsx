@@ -8,6 +8,10 @@ import Projects from "./components/projects";
 import Contact from "./components/contact";
 import "./globals.css";
 import HelloAnimation from "./components/HelloAnimation";
+import BlogCard from "./components/BlogCard";
+import blogPosts from "./lib/BlogData";
+import Link from "next/link";
+import Header from "./components/Header";
 
 export default function Home() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -18,6 +22,7 @@ export default function Home() {
   const [isHovering, setIsHovering] = useState(false);
   const [isCursorHidden, setIsCursorHidden] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const recentBlogs = blogPosts.slice(0, 3);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -126,61 +131,62 @@ export default function Home() {
         style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px` }}
       ></div>
       <BackgroundImages />
-      <div
-        className={`logo fixed top-7 left-10 z-20 ${bounceAnimation}`}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
-        <img
-          src={isDarkMode ? "/logo1.png" : "/logo2.png"}
-          alt="Logo"
-          width={80}
-          height={45}
-        />
-      </div>
-      <button
-        className={`hamburger fixed top-12 right-10 z-50 ${bounceAnimation}`}
-        onClick={() => setSidebarOpen(!isSidebarOpen)}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
-        <div className={`hamburger-icon ${isSidebarOpen ? "active" : ""}`}>
-          <div
-            className="line"
-            style={{ backgroundColor: hamburgerIconColor }}
-          />
-          <div
-            className="line"
-            style={{ backgroundColor: hamburgerIconColor }}
-          />
-          <div
-            className="line"
-            style={{ backgroundColor: hamburgerIconColor }}
-          />
-        </div>
-      </button>
+      <Header showBlogLink={true}/>
+
       <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
-      
       {/* Hero Section */}
-      <div id="home" className="relative z-10 flex flex-col items-center min-h-screen text-center pt-20">
+      <div
+        id="home"
+        className="relative z-10 flex flex-col items-center min-h-screen text-center pt-20"
+      >
         <h1 className="text-5xl font-bold">Hi, I&apos;m Ali Asif</h1>
         <p className="mt-4 text-lg">
           Student | Developer | Designer | Notion Enthusiast
         </p>
       </div>
-
       {/* About Section */}
-      <section id="about" className="min-h-screen flex items-center justify-center z-10">
+      <section
+        id="about"
+        className="min-h-screen flex items-center justify-center z-10"
+      >
         <About isDarkMode={isDarkMode} />
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="min-h-screen flex items-center justify-center z-10">
-        <Projects />
+      {/* Recent Blogs Section */}
+      <section
+        id="blogs"
+        className="min-h-screen flex items-center justify-center z-10 w-full px-4"
+      >
+        <div className="max-w-6xl mx-auto w-full">
+          <h2 className="text-3xl font-bold mb-8 text-white">Latest Blogs</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {recentBlogs.map((blog) => (
+              <BlogCard key={blog.slug} blog={blog} />
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Link
+              href="/blog"
+              className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium shadow-md hover:from-purple-700 hover:to-blue-700 transform hover:-translate-y-0.5 transition-all duration-200 inline-block"
+            >
+              View All Blogs
+            </Link>
+          </div>
+        </div>
       </section>
 
+      {/* Projects Section */}
+      <section
+        id="projects"
+        className="min-h-screen flex items-center justify-center z-10"
+      >
+        <Projects />
+      </section>
       {/* Contact Section */}
-      <section id="contact" className="min-h-screen flex items-center justify-center z-10">
+      <section
+        id="contact"
+        className="min-h-screen flex items-center justify-center z-10"
+      >
         <Contact />
       </section>
     </main>

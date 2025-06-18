@@ -23,6 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const navLinks = [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
+    { href: "#blog", label: "Blogs" },
     { href: "#projects", label: "Projects" },
     { href: "#contact", label: "Contact" }
   ];
