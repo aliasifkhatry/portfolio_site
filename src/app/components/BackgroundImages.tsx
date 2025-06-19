@@ -2,12 +2,13 @@
 
 import { useEffect, useState, CSSProperties } from 'react';
 import Image from 'next/image';
+import { useTheme } from '../ThemeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 const BackgroundImages = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,12 +28,9 @@ const BackgroundImages = () => {
     transform: `translateY(${Math.max(-1 * (1 - (scrollPosition - offset) / 2), endPosition)}%)`
   });
 
-  const toggleTheme = () => {
-    const newTheme = !isDarkMode;
-    setIsDarkMode(newTheme);
-    const themeEvent = new CustomEvent('themeChange', { detail: { isDarkMode: newTheme } });
-    window.dispatchEvent(themeEvent);
-  };
+  function toggleTheme(event: MouseEvent<HTMLDivElement, MouseEvent>): void {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <div className={`fixed inset-0 z-0 overflow-hidden ${isDarkMode ? 'bg-black' : 'bg-gray-100'}`}>

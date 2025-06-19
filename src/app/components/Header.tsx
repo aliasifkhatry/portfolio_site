@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useTheme } from "../ThemeContext";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Header({
   showBlogLink = true,
@@ -9,7 +12,7 @@ export default function Header({
   showBlogLink?: boolean;
 }) {
   const [bounceTrigger, setBounceTrigger] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const { isDarkMode, toggleTheme } = useTheme();
 
   // Trigger bounce on scroll to top
   useEffect(() => {
@@ -28,16 +31,6 @@ export default function Header({
     return () => clearTimeout(timer);
   }, [bounceTrigger]);
 
-  // Listen for theme changes
-  useEffect(() => {
-    const handleThemeChange = (event: any) => {
-      setIsDarkMode(event.detail.isDarkMode);
-    };
-
-    window.addEventListener("themeChange", handleThemeChange);
-    return () => window.removeEventListener("themeChange", handleThemeChange);
-  }, []);
-
   const bounceAnimation = bounceTrigger ? "animate-bounce" : "";
 
   return (
@@ -55,15 +48,58 @@ export default function Header({
           </Link>
         </div>
 
-        {/* Blog Button with Bounce */}
-        {showBlogLink && (
-          <Link
-            href="/blog"
-            className={`${bounceAnimation} hidden md:inline-block px-4 py-2 rounded-md text-sm font-medium border border-white/30 hover:border-white/50 transition-colors duration-300`}
+        <div className="flex items-center gap-4">
+          {/* Blog Button with Liquid Glass Effect */}
+          {showBlogLink && (
+            <Link
+              href="/blog"
+              className={`
+                ${bounceAnimation}
+                hidden md:inline-block px-8 py-3 rounded-full
+                text-sm font-medium
+                transition-all duration-300
+                before:content-[''] before:absolute before:inset-0 
+                before:backdrop-blur-lg
+                before:border before:rounded-full before:shadow-lg
+                relative overflow-hidden
+                ${
+                  isDarkMode
+                    ? "text-gray-300 before:bg-white/5 before:border-white/30 hover:before:bg-white/10 hover:before:border-white/40"
+                    : "text-gray-800 before:bg-black/5 before:border-black/30 hover:before:bg-black/10 hover:before:border-black/40"
+                }
+              `}
+            >
+              <span className="relative z-10">Blog</span>
+            </Link>
+          )}
+          
+          {/* Theme Toggle Button with Liquid Glass Effect */}
+          <button
+            onClick={toggleTheme}
+            className={`
+              ${bounceAnimation}
+              w-12 h-12 flex items-center justify-center
+              transition-all duration-300
+              before:content-[''] before:absolute before:inset-0 
+              before:backdrop-blur-lg
+              before:border before:rounded-full
+              relative overflow-hidden
+              ${
+                isDarkMode
+                  ? "before:bg-white/5 before:border-white/30 hover:before:bg-white/10 hover:before:border-white/40"
+                  : "before:bg-black/5 before:border-black/30 hover:before:bg-black/10 hover:before:border-black/40"
+              }
+            `}
+            aria-label="Toggle Dark Mode"
           >
-            Blog
-          </Link>
-        )}
+            <FontAwesomeIcon
+              icon={isDarkMode ? faSun : faMoon}
+              className={`relative z-10 text-lg ${
+                isDarkMode ? "text-gray-300" : "text-gray-800"
+              }`}
+            />
+          </button>
+        </div>
       </div>
     </header>
   );

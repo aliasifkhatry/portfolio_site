@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import BackgroundImages from "./components/BackgroundImages";
-import Sidebar from "./components/Sidebar";
 import About from "./components/About";
 import Projects from "./components/projects";
 import Contact from "./components/contact";
@@ -12,6 +11,7 @@ import BlogCard from "./components/BlogCard";
 import blogPosts from "./lib/BlogData";
 import Link from "next/link";
 import Header from "./components/Header";
+import { useTheme } from "./ThemeContext";
 
 export default function Home() {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -21,7 +21,7 @@ export default function Home() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isCursorHidden, setIsCursorHidden] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const { isDarkMode } = useTheme();
   const recentBlogs = blogPosts.slice(0, 3);
 
   useEffect(() => {
@@ -89,23 +89,7 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    const handleThemeChange = (event: CustomEvent) => {
-      setIsDarkMode(event.detail.isDarkMode);
-    };
-
-    window.addEventListener("themeChange", handleThemeChange as EventListener);
-
-    return () => {
-      window.removeEventListener(
-        "themeChange",
-        handleThemeChange as EventListener
-      );
-    };
-  }, []);
-
   const bounceAnimation = bounceTrigger ? "animate-bounce" : "";
-  const hamburgerIconColor = isDarkMode ? "#FFCF00" : "black";
 
   if (isLoading) {
     return (
@@ -130,26 +114,26 @@ export default function Home() {
         }`}
         style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px` }}
       ></div>
-      <BackgroundImages />
+      <BackgroundImages isDarkMode={isDarkMode} />
       <Header showBlogLink={true}/>
-
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)} />
+      
       {/* Hero Section */}
       <div
         id="home"
         className="relative z-10 flex flex-col items-center min-h-screen text-center pt-20"
       >
-        <h1 className="text-5xl font-bold">Hi, I&apos;m Ali Asif</h1>
+        <h1 className="text-5xl font-bold">Hi, I'm Ali Asif</h1>
         <p className="mt-4 text-lg">
           Student | Developer | Designer | Notion Enthusiast
         </p>
       </div>
+      
       {/* About Section */}
       <section
         id="about"
         className="min-h-screen flex items-center justify-center z-10"
       >
-        <About isDarkMode={isDarkMode} />
+        <About />
       </section>
 
       {/* Recent Blogs Section */}
@@ -158,7 +142,11 @@ export default function Home() {
         className="min-h-screen flex items-center justify-center z-10 w-full px-4"
       >
         <div className="max-w-6xl mx-auto w-full">
-          <h2 className="text-3xl font-bold mb-8 text-white">Latest Blogs</h2>
+          <h2 className={`text-3xl font-bold mb-8 text-center ${
+            isDarkMode ? "text-white" : "text-black"
+          }`}>
+            Latest Blogs
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {recentBlogs.map((blog) => (
               <BlogCard key={blog.slug} blog={blog} />
@@ -182,6 +170,7 @@ export default function Home() {
       >
         <Projects />
       </section>
+      
       {/* Contact Section */}
       <section
         id="contact"
@@ -192,12 +181,3 @@ export default function Home() {
     </main>
   );
 }
-
-interface RepeatComponentProps {
-  times: number;
-  render: (index: number) => JSX.Element;
-}
-
-const RepeatComponent: React.FC<RepeatComponentProps> = ({ times, render }) => {
-  return <>{Array.from({ length: times }).map((_, index) => render(index))}</>;
-};

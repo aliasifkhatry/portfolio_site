@@ -1,10 +1,14 @@
-// /app/blog/[slug]/page.tsx
+"use client";
+
 import { notFound } from "next/navigation";
 import blogPosts from "../../lib/BlogData";
 import Link from "next/link";
 import Header from "../../components/Header";
+import BackgroundImages from "../../components/BackgroundImages";
+import { useTheme } from "../../ThemeContext";
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
+  const { isDarkMode } = useTheme();
   const blog = blogPosts.find((post) => post.slug === params.slug);
 
   if (!blog) {
@@ -12,9 +16,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <>
+    <div className={`relative ${isDarkMode ? 'bg-black' : 'bg-gray-100'}`}>
+      <BackgroundImages />
       <Header />
-      <div className="max-w-3xl mx-auto p-6 md:p-10">
+      
+      <div className="relative z-10 max-w-3xl mx-auto p-6 md:p-10 mt-11">
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6"
@@ -22,10 +28,18 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           ← Back to Blogs
         </Link>
 
-        <h1 className="text-4xl font-bold mt-2 mb-4 text-white">{blog.title}</h1>
-        <p className="text-sm text-gray-400 mb-6">{blog.date}</p>
+        <h1 className={`text-4xl font-bold mt-2 mb-4 ${isDarkMode ? 'text-white' : 'text-black'}`}>
+          {blog.title}
+        </h1>
+        <p className={`text-sm mb-6 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          {blog.date}
+        </p>
 
-        <div className="prose prose-invert prose-lg max-w-none">
+        <div className={`prose prose-lg max-w-none ${
+          isDarkMode 
+            ? 'prose-invert prose-headings:text-white prose-p:text-gray-300' 
+            : 'prose-headings:text-black prose-p:text-gray-800'
+        }`}>
           <p>{blog.description}</p>
           <p className="mt-4">
             This is where the full article would go. You can integrate Markdown rendering here.
@@ -41,6 +55,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }

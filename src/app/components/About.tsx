@@ -1,4 +1,9 @@
+"use client";
+
 import React from "react";
+import { useTheme } from "../ThemeContext";
+import Image from "next/image";
+import { CSSProperties } from "react";
 
 interface SectionData {
   title: string;
@@ -6,17 +11,12 @@ interface SectionData {
   image?: string;
 }
 
-interface AboutProps {
-  firstRowHeight?: number;
-  secondRowHeight?: number;
-  thirdRowHeight?: number;
-  isDarkMode?: boolean; // Theme prop
-}
+const About = () => {
+  const { isDarkMode } = useTheme();
 
-const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
   // Conditional styling helpers
   const getBoxClasses = (baseClasses: string = "") => {
-    return `${baseClasses} ${
+    return `${baseClasses} transition-colors duration-300 ${
       isDarkMode 
         ? 'bg-white/10 border-white/20 text-white' 
         : 'bg-black/30 border-black/20 text-white'
@@ -24,13 +24,21 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
   };
 
   const getGradientClasses = () => {
-    return isDarkMode 
-      ? 'bg-gradient-to-br from-white/10 to-transparent opacity-20' 
-      : 'bg-gradient-to-br from-black/10 to-transparent opacity-30';
+    return `transition-opacity duration-300 ${
+      isDarkMode 
+        ? 'bg-gradient-to-br from-white/10 to-transparent opacity-20' 
+        : 'bg-gradient-to-br from-black/10 to-transparent opacity-30'
+    }`;
   };
 
-  const getImageStyle = () =>
-    "absolute inset-0 object-cover w-full h-full";
+  const getImageStyle = (): CSSProperties => ({
+    objectFit: 'cover',
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0
+  });
 
   // Sample data with optional image URLs
   const firstRowSections: SectionData[] = [
@@ -73,13 +81,17 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
         >
           <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
           {section.image && (
-            <img
-              key={section.image}
-              src={section.image}
-              alt={section.title || "Section"}
-              className={getImageStyle()}
-              style={{ zIndex: 0 }}
-            />
+            <div className="absolute inset-0 w-full h-full">
+              <Image
+                src={section.image}
+                alt={section.title || "Section"}
+                fill
+                style={getImageStyle()}
+                className="z-0 object-cover"
+                priority
+                onLoadingComplete={() => {}}
+              />
+            </div>
           )}
           <div className="relative z-10 text-center">
             {section.title && <h2 className="text-white text-xl mb-2">{section.title}</h2>}
@@ -98,13 +110,16 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
             >
               <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
               {section.image && (
-                <img
-                  key={section.image}
-                  src={section.image}
-                  alt={section.title || "Section"}
-                  className={getImageStyle()}
-                  style={{ zIndex: 0 }}
-                />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src={section.image}
+                    alt={section.title || "Section"}
+                    fill
+                    style={getImageStyle()}
+                    className="z-0 object-cover"
+                    priority
+                  />
+                </div>
               )}
               <div className="invisible-text">
                 {section.title && <h3 className="invisible-text">{section.title}</h3>}
@@ -121,13 +136,15 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
           >
             <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
             {section.image && (
-              <img
-                key={section.image}
-                src={section.image}
-                alt={section.title || "Section"}
-                className={getImageStyle()}
-                style={{ zIndex: 0 }}
-              />
+              <div className="absolute inset-0 w-full h-full">
+                <Image
+                  src={section.image}
+                  alt={section.title || "Section"}
+                  fill
+                  style={getImageStyle()}
+                  className="z-0 object-cover"
+                />
+              </div>
             )}
             <div className="relative z-10 text-center">
               {section.title && <h3 className="text-sm font-bold text-white">{section.title}</h3>}
@@ -144,13 +161,15 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
             >
               <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
               {section.image && (
-                <img
-                  key={section.image}
-                  src={section.image}
-                  alt={section.title || "Section"}
-                  className={getImageStyle()}
-                  style={{ zIndex: 0 }}
-                />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src={section.image}
+                    alt={section.title || "Section"}
+                    fill
+                    style={getImageStyle()}
+                    className="z-0 object-cover"
+                  />
+                </div>
               )}
               <div className="relative z-10 text-center">
                 {section.title && <h3 className="text-sm font-bold text-white truncate">{section.title}</h3>}
@@ -170,13 +189,15 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
           >
             <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
             {section.image && (
-              <img
-                key={section.image}
-                src={section.image}
-                alt={section.title || "Section"}
-                className={getImageStyle()}
-                style={{ zIndex: 0 }}
-              />
+              <div className="absolute inset-0 w-full h-full">
+                <Image
+                  src={section.image}
+                  alt={section.title || "Section"}
+                  fill
+                  style={getImageStyle()}
+                  className="z-0 object-cover"
+                />
+              </div>
             )}
             <div className="relative z-10 text-center">
               {section.title && <h3 className="text-sm font-bold text-white truncate">{section.title}</h3>}
@@ -203,13 +224,16 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
               >
                 <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
                 {section.image && (
-                  <img
-                    key={section.image}
-                    src={section.image}
-                    alt={section.title || "Section"}
-                    className={getImageStyle()}
-                    style={{ zIndex: 0 }}
-                  />
+                  <div className="absolute inset-0 w-full h-full">
+                    <Image
+                      src={section.image}
+                      alt={section.title || "Section"}
+                      fill
+                      style={getImageStyle()}
+                      className="z-0 object-cover"
+                      priority
+                    />
+                  </div>
                 )}
                 <div className="relative z-10 text-center">
                   {section.title && (
@@ -231,13 +255,15 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
             <div className={getBoxClasses("h-full flex flex-col items-center justify-center p-4 rounded-2xl backdrop-blur-2xl relative overflow-hidden")}>
               <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
               {firstRowSections[2].image && (
-                <img
-                  key={firstRowSections[2].image}
-                  src={firstRowSections[2].image}
-                  alt={firstRowSections[2].title || "Section"}
-                  className={getImageStyle()}
-                  style={{ zIndex: 0 }}
-                />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src={firstRowSections[2].image}
+                    alt={firstRowSections[2].title || "Section"}
+                    fill
+                    style={getImageStyle()}
+                    className="z-0 object-cover"
+                  />
+                </div>
               )}
               <div className="relative z-10 text-center">
                 {firstRowSections[2].title && (
@@ -258,13 +284,15 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
             <div className={getBoxClasses("h-full flex flex-col items-center justify-center p-4 rounded-2xl backdrop-blur-2xl relative overflow-hidden")}>
               <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
               {firstRowSections[3].image && (
-                <img
-                  key={firstRowSections[3].image}
-                  src={firstRowSections[3].image}
-                  alt={firstRowSections[3].title || "Section"}
-                  className={getImageStyle()}
-                  style={{ zIndex: 0 }}
-                />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src={firstRowSections[3].image}
+                    alt={firstRowSections[3].title || "Section"}
+                    fill
+                    style={getImageStyle()}
+                    className="z-0 object-cover"
+                  />
+                </div>
               )}
               <div className="relative z-10 text-center">
                 {firstRowSections[3].title && (
@@ -294,13 +322,16 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
                 >
                   <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
                   {section.image && (
-                    <img
-                      key={section.image}
-                      src={section.image}
-                      alt={section.title || "Section"}
-                      className={getImageStyle()}
-                      style={{ zIndex: 0 }}
-                    />
+                    <div className="absolute inset-0 w-full h-full">
+                      <Image
+                        src={section.image}
+                        alt={section.title || "Section"}
+                        fill
+                        style={getImageStyle()}
+                        className="z-0 object-cover"
+                        priority
+                      />
+                    </div>
                   )}
                   <div className="relative z-10 text-center">
                     {section.title && (
@@ -325,13 +356,15 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
                 >
                   <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
                   {section.image && (
-                    <img
-                      key={section.image}
-                      src={section.image}
-                      alt={section.title || "Section"}
-                      className={getImageStyle()}
-                      style={{ zIndex: 0 }}
-                    />
+                    <div className="absolute inset-0 w-full h-full">
+                      <Image
+                        src={section.image}
+                        alt={section.title || "Section"}
+                        fill
+                        style={getImageStyle()}
+                        className="z-0 object-cover"
+                      />
+                    </div>
                   )}
                   <div className="relative z-10 text-center">
                     {section.title && (
@@ -370,13 +403,15 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
               >
                 <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
                 {section.image && (
-                  <img
-                    key={section.image}
-                    src={section.image}
-                    alt={section.title || "Section"}
-                    className={getImageStyle()}
-                    style={{ zIndex: 0 }}
-                  />
+                  <div className="absolute inset-0 w-full h-full">
+                    <Image
+                      src={section.image}
+                      alt={section.title || "Section"}
+                      fill
+                      style={getImageStyle()}
+                      className="z-0 object-cover"
+                    />
+                  </div>
                 )}
                 <div className="relative z-10 text-center">
                   {section.title && (
@@ -404,13 +439,15 @@ const About: React.FC<AboutProps> = ({ isDarkMode = true }) => {
             >
               <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
               {section.image && (
-                <img
-                  key={section.image}
-                  src={section.image}
-                  alt={section.title || "Section"}
-                  className={getImageStyle()}
-                  style={{ zIndex: 0 }}
-                />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src={section.image}
+                    alt={section.title || "Section"}
+                    fill
+                    style={getImageStyle()}
+                    className="z-0 object-cover"
+                  />
+                </div>
               )}
               <div className="relative z-10 text-center">
                 <h2 className="text-xl font-bold mb-2 text-white">
