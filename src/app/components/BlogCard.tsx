@@ -1,18 +1,15 @@
 "use client";
 
-import { useTheme } from "../ThemeContext";
-import Image from "next/image";
+import { BlogPost } from "../lib/BlogData";
 import Link from "next/link";
+import Image from "next/image";
+import { useTheme } from "../ThemeContext";
 
-interface BlogPost {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  coverImage: string;
+interface BlogCardProps {
+  blog: BlogPost;
 }
 
-export default function BlogCard({ blog }: { blog: BlogPost }) {
+export default function BlogCard({ blog }: BlogCardProps) {
   const { isDarkMode } = useTheme();
 
   return (
@@ -22,14 +19,17 @@ export default function BlogCard({ blog }: { blog: BlogPost }) {
           ? 'bg-gray-800 border border-gray-700' 
           : 'bg-white border border-gray-200'
       }`}>
-        <div className="relative h-48 w-full">
-          <Image 
-            src={blog.coverImage} 
-            alt={blog.title} 
-            fill
-            className="object-cover"
-          />
-        </div>
+        {blog.coverImage && (
+          <div className="relative h-48 w-full">
+            <Image 
+              src={blog.coverImage} 
+              alt={blog.title} 
+              fill
+              className="object-cover"
+              priority={false}
+            />
+          </div>
+        )}
         <div className="p-6">
           <h3 className={`text-xl font-bold mb-2 ${
             isDarkMode ? 'text-white' : 'text-black'
@@ -39,7 +39,7 @@ export default function BlogCard({ blog }: { blog: BlogPost }) {
           }`}>{blog.date}</p>
           <p className={`${
             isDarkMode ? 'text-gray-300' : 'text-gray-700'
-          }`}>{blog.excerpt}</p>
+          }`}>{blog.description}</p> {/* Using description instead of excerpt */}
         </div>
       </div>
     </Link>
