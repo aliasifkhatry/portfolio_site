@@ -114,7 +114,7 @@ export default function Home() {
         }`}
         style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px` }}
       ></div>
-      <BackgroundImages isDarkMode={isDarkMode} />
+      <BackgroundImages />
       <Header showBlogLink={true}/>
       
       {/* Hero Section */}

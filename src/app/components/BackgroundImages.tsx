@@ -22,7 +22,10 @@ const BackgroundImages = () => {
     };
   }, []);
 
-  const getStyle = (endPosition: number, offset: number): CSSProperties & { [key: string]: string | number } => ({
+  const getStyle = (
+    endPosition: number, 
+    offset: number
+  ): CSSProperties & { [key: string]: string | number } => ({
     '--bounce-up-end': `${endPosition}%`,
     opacity: 1 - (scrollPosition - offset) / 200,
     transform: `translateY(${Math.max(-1 * (1 - (scrollPosition - offset) / 2), endPosition)}%)`
@@ -36,72 +39,84 @@ const BackgroundImages = () => {
   return (
     <div className={`fixed inset-0 z-0 overflow-hidden ${isDarkMode ? 'bg-black' : 'bg-gray-100'}`}>
       <div className="absolute w-full h-full bottom-0">
+        {/* Mountain Layer 1 */}
         <div
           className="absolute inset-0 translate-y-[35%] animate-bounce-up"
           style={getStyle(35, 400)}
         >
           <Image 
             src={isDarkMode ? "/mountains/Layer1.svg" : "/mountainswhite/mount1.svg"} 
-            alt="Image 1" 
+            alt="Mountain layer 1" 
             fill
             style={{ 
               objectFit: 'cover',
-              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' 
-            }} 
+              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)',
+            }}
+            priority
           />
         </div>
+
+        {/* Mountain Layer 2 */}
         <div
           className="absolute inset-0 translate-y-[40%] animate-bounce-up"
           style={getStyle(40, 300)}
         >
           <Image 
             src={isDarkMode ? "/mountains/Layer2.svg" : "/mountainswhite/mount2.svg"} 
-            alt="Image 2" 
+            alt="Mountain layer 2" 
             fill
             style={{ 
               objectFit: 'cover',
-              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' 
-            }} 
+              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)',
+            }}
           />
         </div>
+
+        {/* Mountain Layer 3 */}
         <div
           className="absolute inset-0 translate-y-[45%] animate-bounce-up"
           style={getStyle(45, 200)}
         >
           <Image 
             src={isDarkMode ? "/mountains/Layer3.svg" : "/mountainswhite/mount3.svg"} 
-            alt="Image 3" 
+            alt="Mountain layer 3" 
             fill
             style={{ 
               objectFit: 'cover',
-              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' 
-            }} 
+              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)',
+            }}
           />
         </div>
+
+        {/* Mountain Layer 4 */}
         <div
           className="absolute inset-0 translate-y-[50%] animate-bounce-up"
           style={getStyle(50, 100)}
         >
           <Image 
             src={isDarkMode ? "/mountains/Layer4.svg" : "/mountainswhite/mount4.svg"} 
-            alt="Image 4" 
+            alt="Mountain layer 4" 
             fill
             style={{ 
               objectFit: 'cover',
-              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' 
-            }} 
+              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)',
+            }}
           />
         </div>
       </div>
+
+      {/* Theme Toggle Button */}
       <div
         onClick={handleThemeToggle}
         className={`fixed bottom-4 right-4 flex items-center justify-center w-12 h-12 z-10 rounded-full cursor-pointer ${
-          isDarkMode ? 'bg-gray-800 text-yellow-300' : 'bg-gray-500 text-gray-700'
-        } shadow-lg transition-all duration-300`}
+          isDarkMode ? 'bg-gray-800/80 hover:bg-gray-700/80 text-yellow-300' 
+                   : 'bg-gray-500/80 hover:bg-gray-400/80 text-gray-700'
+        } shadow-lg transition-all duration-300 backdrop-blur-sm`}
+        aria-label="Toggle dark mode"
       >
         <FontAwesomeIcon
           icon={isDarkMode ? faSun : faMoon}
-          className={isDarkMode ? 'text-yellow-400' : 'text-gray-700'}
+          className={isDarkMode ? 'text-yellow-400' : 'text-gray-800'}
           size="lg"
         />
       </div>
