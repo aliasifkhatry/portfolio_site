@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, CSSProperties } from 'react';
+import { useEffect, useState, CSSProperties, MouseEvent } from 'react';
 import Image from 'next/image';
 import { useTheme } from '../ThemeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,7 @@ import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 const BackgroundImages = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const { isDarkMode } = useTheme();
+  const { isDarkMode, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,9 +28,10 @@ const BackgroundImages = () => {
     transform: `translateY(${Math.max(-1 * (1 - (scrollPosition - offset) / 2), endPosition)}%)`
   });
 
-  function toggleTheme(event: MouseEvent<HTMLDivElement, MouseEvent>): void {
-    throw new Error('Function not implemented.');
-  }
+  const handleThemeToggle = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    toggleTheme();
+  };
 
   return (
     <div className={`fixed inset-0 z-0 overflow-hidden ${isDarkMode ? 'bg-black' : 'bg-gray-100'}`}>
@@ -42,9 +43,11 @@ const BackgroundImages = () => {
           <Image 
             src={isDarkMode ? "/mountains/Layer1.svg" : "/mountainswhite/mount1.svg"} 
             alt="Image 1" 
-            layout="fill" 
-            objectFit="cover"
-            style={{ filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' }} 
+            fill
+            style={{ 
+              objectFit: 'cover',
+              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' 
+            }} 
           />
         </div>
         <div
@@ -54,9 +57,11 @@ const BackgroundImages = () => {
           <Image 
             src={isDarkMode ? "/mountains/Layer2.svg" : "/mountainswhite/mount2.svg"} 
             alt="Image 2" 
-            layout="fill" 
-            objectFit="cover"
-            style={{ filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' }} 
+            fill
+            style={{ 
+              objectFit: 'cover',
+              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' 
+            }} 
           />
         </div>
         <div
@@ -66,9 +71,11 @@ const BackgroundImages = () => {
           <Image 
             src={isDarkMode ? "/mountains/Layer3.svg" : "/mountainswhite/mount3.svg"} 
             alt="Image 3" 
-            layout="fill" 
-            objectFit="cover"
-            style={{ filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' }} 
+            fill
+            style={{ 
+              objectFit: 'cover',
+              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' 
+            }} 
           />
         </div>
         <div
@@ -78,19 +85,23 @@ const BackgroundImages = () => {
           <Image 
             src={isDarkMode ? "/mountains/Layer4.svg" : "/mountainswhite/mount4.svg"} 
             alt="Image 4" 
-            layout="fill" 
-            objectFit="cover"
-            style={{ filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' }} 
+            fill
+            style={{ 
+              objectFit: 'cover',
+              filter: isDarkMode ? 'brightness(0.75)' : 'brightness(1.02)' 
+            }} 
           />
         </div>
       </div>
       <div
-        onClick={toggleTheme}
-        className={`fixed bottom-4 right-4 flex items-center justify-center w-12 h-12 z-10 rounded-full cursor-pointer ${isDarkMode ? 'bg-gray-800 text-yellow-300' : 'bg-gray-500 text-gray-700'} shadow-lg transition-all duration-300`}
+        onClick={handleThemeToggle}
+        className={`fixed bottom-4 right-4 flex items-center justify-center w-12 h-12 z-10 rounded-full cursor-pointer ${
+          isDarkMode ? 'bg-gray-800 text-yellow-300' : 'bg-gray-500 text-gray-700'
+        } shadow-lg transition-all duration-300`}
       >
         <FontAwesomeIcon
           icon={isDarkMode ? faSun : faMoon}
-          className={`text-white ${isDarkMode ? 'text-yellow-400' : 'text-gray-700'}`}
+          className={isDarkMode ? 'text-yellow-400' : 'text-gray-700'}
           size="lg"
         />
       </div>
