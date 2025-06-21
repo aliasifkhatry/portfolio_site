@@ -122,7 +122,7 @@ export default function Home() {
         id="home"
         className="relative z-10 flex flex-col items-center min-h-screen text-center pt-20"
       >
-        <h1 className="text-5xl font-bold">Hi, I'm Ali Asif</h1>
+        <h1 className="text-5xl font-bold">Hi, Im Ali Asif</h1>
         <p className="mt-4 text-lg">
           Student | Developer | Designer | Notion Enthusiast
         </p>
