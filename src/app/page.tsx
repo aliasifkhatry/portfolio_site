@@ -108,26 +108,22 @@ export default function Home() {
       } custom-cursor`}
       onMouseEnter={() => setIsHovering(false)}
     >
-      <div
-        className={`cursor-circle ${isHovering ? "cursor-hover" : ""} ${
-          isCursorHidden ? "hidden" : ""
-        }`}
-        style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px` }}
-      ></div>
       <BackgroundImages />
-      <Header showBlogLink={true}/>
-      
+      <Header showBlogLink={true} />
+
       {/* Hero Section */}
       <div
         id="home"
-        className="relative z-10 flex flex-col items-center min-h-screen text-center pt-20"
+        className="relative z-10 flex flex-col items-center min-h-screen text-center pt-20 sm:pt-28 px-4"
       >
-        <h1 className="text-5xl font-bold">Hi, Im Ali Asif</h1>
-        <p className="mt-4 text-lg">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+          Hi, I&apos;m Ali Asif
+        </h1>
+        <p className="mt-2 sm:mt-3 md:mt-4 text-sm sm:text-base md:text-lg">
           Student | Developer | Designer | Notion Enthusiast
         </p>
       </div>
-      
+
       {/* About Section */}
       <section
         id="about"
@@ -142,9 +138,11 @@ export default function Home() {
         className="min-h-screen flex items-center justify-center z-10 w-full px-4"
       >
         <div className="max-w-6xl mx-auto w-full">
-          <h2 className={`text-3xl font-bold mb-8 text-center ${
-            isDarkMode ? "text-white" : "text-black"
-          }`}>
+          <h2
+            className={`text-3xl font-bold mb-8 text-center ${
+              isDarkMode ? "text-white" : "text-black"
+            }`}
+          >
             Latest Blogs
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -155,9 +153,23 @@ export default function Home() {
           <div className="mt-10 text-center">
             <Link
               href="/blog"
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium shadow-md hover:from-purple-700 hover:to-blue-700 transform hover:-translate-y-0.5 transition-all duration-200 inline-block"
+              className={`
+      inline-block px-6 py-3 rounded-full
+      text-sm sm:text-base font-medium
+      transition-all duration-300
+      before:content-[''] before:absolute before:inset-0 
+      before:backdrop-blur-lg
+      before:border before:rounded-full before:shadow-lg
+      relative overflow-hidden
+      transform hover:-translate-y-0.5
+      ${
+        isDarkMode
+          ? "text-yellow-400 before:bg-gradient-to-r before:from-yellow-700/20 before:to-amber-800/20 before:border-yellow-500/30 hover:before:border-yellow-400/40"
+          : "text-gray-800 before:bg-black/5 before:border-black/30 hover:before:bg-black/10 hover:before:border-black/40"
+      }
+    `}
             >
-              View All Blogs
+              <span className="relative z-10">View All Blogs</span>
             </Link>
           </div>
         </div>
@@ -170,7 +182,7 @@ export default function Home() {
       >
         <Projects />
       </section>
-      
+
       {/* Contact Section */}
       <section
         id="contact"

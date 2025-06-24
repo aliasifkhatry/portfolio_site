@@ -104,22 +104,6 @@ const BackgroundImages = () => {
           />
         </div>
       </div>
-
-      {/* Theme Toggle Button */}
-      <div
-        onClick={handleThemeToggle}
-        className={`fixed bottom-4 right-4 flex items-center justify-center w-12 h-12 z-10 rounded-full cursor-pointer ${
-          isDarkMode ? 'bg-gray-800/80 hover:bg-gray-700/80 text-yellow-300' 
-                   : 'bg-gray-500/80 hover:bg-gray-400/80 text-gray-700'
-        } shadow-lg transition-all duration-300 backdrop-blur-sm`}
-        aria-label="Toggle dark mode"
-      >
-        <FontAwesomeIcon
-          icon={isDarkMode ? faSun : faMoon}
-          className={isDarkMode ? 'text-yellow-400' : 'text-gray-800'}
-          size="lg"
-        />
-      </div>
     </div>
   );
 };

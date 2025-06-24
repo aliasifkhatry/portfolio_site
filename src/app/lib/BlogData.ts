@@ -27,7 +27,7 @@ const blogPosts: BlogPost[] = [
     title: "Next.js Performance Optimizations",
     description: "Speeding up your Next.js applications with these tips.",
     date: "March 20, 2025",
-    coverImage: "/images/nextjs.jpg",
+    coverImage: "/public/me_bw.png",
   },
 ];
 

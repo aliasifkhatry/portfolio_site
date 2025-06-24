@@ -36,27 +36,28 @@ export default function Header({
   return (
     <header className="fixed top-0 left-0 w-full z-50">
       <div className="flex items-center justify-between px-6 md:px-10 py-4">
-        {/* Logo */}
+        {/* Logo - Smaller on mobile */}
         <div className={`logo ${bounceAnimation}`}>
           <Link href="/">
             <img
               src={isDarkMode ? "/logo1.png" : "/logo2.png"}
               alt="Logo"
-              width={80}
-              height={45}
+              width={60} // Default size
+              height={34}
+              className="w-[60px] sm:w-[70px] md:w-[80px]"
             />
           </Link>
         </div>
 
-        <div className="flex items-center gap-4">
-          {/* Blog Button with Liquid Glass Effect */}
+        <div className="flex items-center gap-2 sm:gap-4">
+          {/* Blog Button with Liquid Glass Effect - Scaled for mobile */}
           {showBlogLink && (
             <Link
               href="/blog"
               className={`
                 ${bounceAnimation}
-                hidden md:inline-block px-8 py-3 rounded-full
-                text-sm font-medium
+                inline-block px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-full
+                text-xs sm:text-sm font-medium
                 transition-all duration-300
                 before:content-[''] before:absolute before:inset-0 
                 before:backdrop-blur-lg
@@ -72,13 +73,13 @@ export default function Header({
               <span className="relative z-10">Blog</span>
             </Link>
           )}
-          
-          {/* Theme Toggle Button with Liquid Glass Effect */}
+
+          {/* Theme Toggle Button with Liquid Glass Effect - Scaled for mobile */}
           <button
             onClick={toggleTheme}
             className={`
               ${bounceAnimation}
-              w-12 h-12 flex items-center justify-center
+              w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center
               transition-all duration-300
               before:content-[''] before:absolute before:inset-0 
               before:backdrop-blur-lg
@@ -94,7 +95,7 @@ export default function Header({
           >
             <FontAwesomeIcon
               icon={isDarkMode ? faSun : faMoon}
-              className={`relative z-10 text-lg ${
+              className={`relative z-10 text-md sm:text-lg ${
                 isDarkMode ? "text-gray-300" : "text-gray-800"
               }`}
             />
