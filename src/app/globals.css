@@ -234,3 +234,8 @@ body {
   pointer-events: none;
 }
 
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
