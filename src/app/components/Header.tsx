@@ -56,47 +56,44 @@ export default function Header({
               href="/blog"
               className={`
                 ${bounceAnimation}
-                inline-block px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-full
-                text-xs sm:text-sm font-medium
+                flex items-center justify-center px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-full
+                text-xs sm:text-sm font-semibold
                 transition-all duration-300
-                before:content-[''] before:absolute before:inset-0 
-                before:backdrop-blur-lg
-                before:border before:rounded-full before:shadow-lg
+                bg-white/70 hover:bg-white/80 dark:bg-neutral-400/20 dark:hover:bg-neutral-400/30
+                backdrop-blur-[2px] border border-neutral-400/30 shadow-md
                 relative overflow-hidden
-                ${
-                  isDarkMode
-                    ? "text-gray-300 before:bg-white/5 before:border-white/30 hover:before:bg-white/10 hover:before:border-white/40"
-                    : "text-gray-800 before:bg-black/5 before:border-black/30 hover:before:bg-black/10 hover:before:border-black/40"
-                }
+                group opacity-90
               `}
             >
-              <span className="relative z-10">Blog</span>
+              <span
+                className="relative z-10 transition-colors duration-200"
+                style={{ color: isDarkMode ? "#d1d5db" : "#1a1a1a" }}
+              >
+                Blog
+              </span>
             </Link>
           )}
 
-          {/* Theme Toggle Button with Liquid Glass Effect - Scaled for mobile */}
+          {/* Theme Toggle Button with Glass Effect */}
           <button
             onClick={toggleTheme}
             className={`
               ${bounceAnimation}
               w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center
               transition-all duration-300
-              before:content-[''] before:absolute before:inset-0 
-              before:backdrop-blur-lg
-              before:border before:rounded-full
+              bg-white/70 hover:bg-white/80 dark:bg-neutral-400/20 dark:hover:bg-neutral-400/30
+              text-neutral-800 dark:text-neutral-300
+              backdrop-blur-[2px] border border-neutral-400/30 shadow-md
+              rounded-full
               relative overflow-hidden
-              ${
-                isDarkMode
-                  ? "before:bg-white/5 before:border-white/30 hover:before:bg-white/10 hover:before:border-white/40"
-                  : "before:bg-black/5 before:border-black/30 hover:before:bg-black/10 hover:before:border-black/40"
-              }
+              opacity-90
             `}
             aria-label="Toggle Dark Mode"
           >
             <FontAwesomeIcon
               icon={isDarkMode ? faSun : faMoon}
               className={`relative z-10 text-md sm:text-lg ${
-                isDarkMode ? "text-gray-300" : "text-gray-800"
+                isDarkMode ? "text-neutral-300" : "text-neutral-800"
               }`}
             />
           </button>
