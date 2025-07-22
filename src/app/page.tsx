@@ -238,7 +238,7 @@ export default function Home() {
         </div>
       </section>
       <section>
-        {Array.from({ length: 15 }).map((_, i) => (
+        {Array.from({ length: 20 }).map((_, i) => (
           <br key={i} />
         ))}
       </section>
