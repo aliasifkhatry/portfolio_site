@@ -25,9 +25,9 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className={`w-full flex justify-center items-end fixed left-0 bottom-0 z-50 pointer-events-none transition-opacity duration-500 ${showFooter ? 'opacity-100' : 'opacity-0'}`}>
+    <footer className={`w-full flex justify-center items-end fixed left-0 bottom-0 transition-opacity duration-500 ${showFooter ? 'opacity-100 z-50 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'}`}>
       <div
-        className={`max-w-7xl w-[99vw] mx-auto mb-8 px-4 sm:px-8 py-6 flex flex-col md:flex-row md:flex-wrap items-center md:items-start justify-center gap-6 text-xs sm:text-sm font-medium pointer-events-auto ${GLASS_BG}`}
+        className={`max-w-7xl w-[99vw] mx-auto mb-8 px-4 sm:px-8 py-6 flex flex-col md:flex-row md:flex-wrap items-center md:items-start justify-center gap-6 text-xs sm:text-sm font-medium ${GLASS_BG}`}
         style={{ boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)" }}
       >
         {/* Unified content row */}

@@ -220,23 +220,32 @@ export default function Home() {
       before:content-[''] before:absolute before:inset-0 
       before:backdrop-blur-lg
       before:border before:rounded-full before:shadow-lg
+      before:pointer-events-none
       relative overflow-hidden
       transform hover:-translate-y-0.5
+      z-10
       ${
         isDarkMode
           ? "text-yellow-400 before:bg-gradient-to-r before:from-yellow-700/20 before:to-amber-800/20 before:border-yellow-500/30 hover:before:border-yellow-400/40"
           : "text-gray-800 before:bg-black/5 before:border-black/30 hover:before:bg-black/10 hover:before:border-black/40"
       }
     `}
+              style={{ pointerEvents: 'auto' }}
             >
               <span className="relative z-10">View All Blogs</span>
             </Link>
           </div>
         </div>
       </section>
-{/* Add 20 <br /> elements for spacing */}
-      {Array.from({ length: 20 }).map((_, i) => <br key={i} />)}
-      <Footer />
+      <section>
+        {Array.from({ length: 15 }).map((_, i) => (
+          <br key={i} />
+        ))}
+      </section>
+      <section className="">
+        <Footer />
+      </section>
+      
     </main>
   );
 }

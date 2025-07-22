@@ -11,22 +11,16 @@ interface BlogCardProps {
 
 export default function BlogCard({ blog }: BlogCardProps) {
   const { isDarkMode } = useTheme();
+  const GLASS_BG =
+    "bg-white/70 hover:bg-white/80 dark:bg-neutral-400/20 dark:hover:bg-neutral-400/30 text-neutral-800 dark:text-neutral-300 backdrop-blur-[2px] border border-neutral-400/30 shadow-lg rounded-3xl opacity-90 transition-all duration-300";
 
   return (
-    <Link href={`/blog/${blog.slug}`}>
-      <div className={`
-        relative h-full rounded-xl overflow-hidden shadow-lg 
-        transition-all duration-300 hover:scale-[1.02]
-        flex flex-col
-        before:content-[''] before:absolute before:inset-0 
-        before:backdrop-blur-lg before:z-[1]
-        before:border before:rounded-xl before:shadow-lg
-        ${isDarkMode 
-          ? "text-gray-300 before:bg-black/25 before:border-white/30" 
-          : "text-gray-800 before:bg-white/50 before:border-black/20"}
-      `}>
-        {/* Glass overlay */}
-        <div className="absolute inset-0 z-[1]" aria-hidden="true"></div>
+    <Link href={`/blog/${blog.slug}`} className="block h-full group focus:outline-none focus:ring-2 focus:ring-yellow-400">
+      <div className={
+        `${GLASS_BG} relative h-full overflow-hidden flex flex-col cursor-pointer`}
+      >
+        {/* Glass overlay (ensure pointer-events-none) */}
+        <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true"></div>
         
         {blog.coverImage && (
           <div className="relative aspect-video w-full flex-shrink-0">
