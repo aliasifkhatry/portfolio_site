@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import BackgroundImages from "./components/BackgroundImages";
 import About from "./components/About";
@@ -23,6 +24,16 @@ export default function Home() {
   const [isCursorHidden, setIsCursorHidden] = useState(false);
   const { isDarkMode } = useTheme();
   const recentBlogs = blogPosts.slice(0, 3);
+
+  // Animation variants for hero section reveal
+  const heroVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: 0.5, duration: 0.8 },
+    },
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -112,14 +123,27 @@ export default function Home() {
       <Header showBlogLink={true} />
 
       {/* Hero Section */}
-      <div
+      <motion.div
         id="home"
         className="relative z-10 flex flex-col items-center min-h-screen text-center pt-20 sm:pt-28 px-4"
+        variants={heroVariants}
+        initial="hidden"
+        animate="visible"
       >
-        <h2 className="mt-2 sm:mt-3 md:mt-4 text-sm sm:text-base md:text-5xl filter grayscale">
+        <motion.h2
+          className="mt-2 sm:mt-3 md:mt-4 text-2xl sm:text-base md:text-5xl filter grayscale"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.7 }}
+        >
           👨‍🎓 👨‍💻 🖌️ 🎧 💻 📸 📚
-        </h2>
-        <div className="flex gap-4 mt-6">
+        </motion.h2>
+        <motion.div
+          className="flex gap-4 mt-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.7 }}
+        >
           {/* LinkedIn */}
           <a
             href="https://www.linkedin.com/in/ali-asif-khatri/"
@@ -156,8 +180,8 @@ export default function Home() {
               <path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.241 1.308 3.608.058 1.266.069 1.646.069 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.241 1.246-3.608 1.308-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.241-1.308-3.608-.058-1.266-.069-1.646-.069-4.85s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.241-1.246 3.608-1.308 1.266-.058 1.646-.069 4.85-.069zm0-2.163c-3.259 0-3.667.012-4.947.07-1.276.058-2.637.334-3.608 1.308-.974.974-1.25 2.332-1.308 3.608-.058 1.28-.07 1.688-.07 4.947s.012 3.667.07 4.947c.058 1.276.334 2.634 1.308 3.608.974.974 2.332 1.25 3.608 1.308 1.28.058 1.688.07 4.947.07s3.667-.012 4.947-.07c1.276-.058 2.634-.334 3.608-1.308.974-.974 1.25-2.332 1.308-3.608.058-1.28.07-1.688.07-4.947s-.012-3.667-.07-4.947c-.058-1.276-.334-2.634-1.308-3.608-.974-.974-2.332-1.25-3.608-1.308-1.28-.058-1.688-.07-4.947-.07zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
             </svg>
           </a>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* About Section */}
       <section

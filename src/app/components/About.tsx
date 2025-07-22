@@ -1,474 +1,108 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useTheme } from "../ThemeContext";
 import Image from "next/image";
-import { CSSProperties } from "react";
+import Link from "next/link";
 
-interface SectionData {
-  title: string;
-  description: string;
-  image?: string;
-}
+const GLASS_BG =
+  "bg-white/70 hover:bg-white/80 dark:bg-neutral-400/20 dark:hover:bg-neutral-400/30 text-neutral-800 dark:text-neutral-300 backdrop-blur-[2px] border border-neutral-400/30 shadow-lg rounded-3xl opacity-90 transition-all duration-300";
 
 const About = () => {
   const { isDarkMode } = useTheme();
 
-  // Conditional styling helpers
-  const getBoxClasses = (baseClasses: string = "") => {
-    return `${baseClasses} transition-colors duration-300 ${
-      isDarkMode 
-        ? 'bg-white/10 border-white/20 text-white' 
-        : 'bg-black/30 border-black/20 text-white'
-    }`;
+  // Left block: full image
+  const leftBlock = {
+    image: "/me_bw.png",
+    alt: "Ali Asif",
   };
 
-  const getGradientClasses = () => {
-    return `transition-opacity duration-300 ${
-      isDarkMode 
-        ? 'bg-gradient-to-br from-white/10 to-transparent opacity-20' 
-        : 'bg-gradient-to-br from-black/10 to-transparent opacity-30'
-    }`;
-  };
+  // Right block: about text
+  const aboutText = `I'm Ali Asif, a passionate student, developer, designer, and Notion enthusiast. I love building beautiful, functional web experiences and exploring new technologies. My journey is driven by curiosity and a desire to create things that make life easier and more enjoyable. Welcome to my portfolio!`;
 
-  const getImageStyle = (): CSSProperties => ({
-    objectFit: 'cover',
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0
-  });
+  // Animation hooks for scroll-in effect
+  function useInViewAnimation(threshold = 0.2) {
+    const ref = useRef(null);
+    const [inView, setInView] = useState(false);
+    useEffect(() => {
+      const node = ref.current;
+      if (!node) return;
+      const observer = new window.IntersectionObserver(
+        ([entry]) => setInView(entry.isIntersecting),
+        { threshold }
+      );
+      observer.observe(node);
+      return () => observer.disconnect();
+    }, [threshold]);
+    return [ref, inView];
+  }
 
-  // Sample data with optional image URLs
-  const firstRowSections: SectionData[] = [
-    { title: "Ali Asif", description: "", image: "" },
-    { title: "", description: "Student | Developer | Designer | Notion Enthusiast", image: "" },
-    { title: "data", description: "more data", image: "" },
-    { title: "", description: "", image: "" },
-  ];
-
-  const secondRowLeftTopSections: SectionData[] = [
-    { title: "Top Left 1", description: "First half of top left", image: "/me_bw.png" },
-    { title: "Top Left 2", description: "Second half of top left", image: "" },
-  ];
-
-  const secondRowLeftBottomSections: SectionData[] = [
-    { title: "Bottom Left", description: "Bottom section", image: "" },
-  ];
-
-  const secondRowRightSections: SectionData[] = [
-    { title: "Top Right", description: "First right section", image: "" },
-    { title: "Bottom Right", description: "Second right section", image: "" },
-  ];
-
-  const thirdRowSections: SectionData[] = [
-    { title: "Left Quarter 1", description: "First section", image: "" },
-    { title: "Center Left", description: "First center section", image: "" },
-    { title: "Center Middle", description: "Second center section", image: "" },
-    { title: "Center Right", description: "Third center section", image: "" },
-    { title: "Right Quarter", description: "Last section", image: "" },
-  ];
-
-  // Mobile Layout Component
-  const MobileLayout = () => (
-    <div className="sm:hidden w-full p-4 space-y-4">
-      {/* First Row - Full Width Boxes */}
-      {firstRowSections.map((section, index) => (
-        <div
-          key={`first-${index}`}
-          className={getBoxClasses("w-full p-4 rounded-2xl min-h-[100px] relative overflow-hidden")}
-        >
-          <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-          {section.image && (
-            <div className="absolute inset-0 w-full h-full">
-              <Image
-                src={section.image}
-                alt={section.title || "Section"}
-                fill
-                style={getImageStyle()}
-                className="z-0 object-cover"
-                priority
-                onLoadingComplete={() => {}}
-              />
-            </div>
-          )}
-          <div className="relative z-10 text-center">
-            {section.title && <h2 className="text-white text-xl mb-2">{section.title}</h2>}
-            {section.description && <p className="text-white/80">{section.description}</p>}
-          </div>
-        </div>
-      ))}
-
-      {/* Second Row - Split into Top and Bottom */}
-      <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-4 text-transparent pointer-events-none">
-          {secondRowLeftTopSections.map((section, index) => (
-            <div
-              key={`top-left-${index}`}
-              className={getBoxClasses("p-3 rounded-xl min-h-[100px] relative overflow-hidden")}
-            >
-              <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-              {section.image && (
-                <div className="absolute inset-0 w-full h-full">
-                  <Image
-                    src={section.image}
-                    alt={section.title || "Section"}
-                    fill
-                    style={getImageStyle()}
-                    className="z-0 object-cover"
-                    priority
-                  />
-                </div>
-              )}
-              <div className="invisible-text">
-                {section.title && <h3 className="invisible-text">{section.title}</h3>}
-                {section.description && <p className="invisible-text">{section.description}</p>}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {secondRowLeftBottomSections.map((section, index) => (
-          <div
-            key={`bottom-left-${index}`}
-            className={getBoxClasses("w-full p-4 rounded-xl min-h-[100px] relative overflow-hidden")}
-          >
-            <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-            {section.image && (
-              <div className="absolute inset-0 w-full h-full">
-                <Image
-                  src={section.image}
-                  alt={section.title || "Section"}
-                  fill
-                  style={getImageStyle()}
-                  className="z-0 object-cover"
-                />
-              </div>
-            )}
-            <div className="relative z-10 text-center">
-              {section.title && <h3 className="text-sm font-bold text-white">{section.title}</h3>}
-              {section.description && <p className="text-xs text-white/70">{section.description}</p>}
-            </div>
-          </div>
-        ))}
-
-        <div className="grid grid-cols-2 gap-4">
-          {secondRowRightSections.map((section, index) => (
-            <div
-              key={`right-${index}`}
-              className={getBoxClasses("p-3 rounded-xl min-h-[100px] relative overflow-hidden")}
-            >
-              <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-              {section.image && (
-                <div className="absolute inset-0 w-full h-full">
-                  <Image
-                    src={section.image}
-                    alt={section.title || "Section"}
-                    fill
-                    style={getImageStyle()}
-                    className="z-0 object-cover"
-                  />
-                </div>
-              )}
-              <div className="relative z-10 text-center">
-                {section.title && <h3 className="text-sm font-bold text-white truncate">{section.title}</h3>}
-                {section.description && <p className="text-xs text-white/70 line-clamp-2">{section.description}</p>}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Third Row - 5 Small Boxes in 2 Columns */}
-      <div className="grid grid-cols-2 gap-4">
-        {thirdRowSections.map((section, index) => (
-          <div
-            key={`third-${index}`}
-            className={getBoxClasses("p-3 rounded-xl min-h-[100px] relative overflow-hidden")}
-          >
-            <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-            {section.image && (
-              <div className="absolute inset-0 w-full h-full">
-                <Image
-                  src={section.image}
-                  alt={section.title || "Section"}
-                  fill
-                  style={getImageStyle()}
-                  className="z-0 object-cover"
-                />
-              </div>
-            )}
-            <div className="relative z-10 text-center">
-              {section.title && <h3 className="text-sm font-bold text-white truncate">{section.title}</h3>}
-              {section.description && <p className="text-xs text-white/70 line-clamp-2">{section.description}</p>}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
-  // Desktop Layout Component
-  const DesktopLayout = () => (
-    <div className="hidden sm:block w-screen min-h-screen flex-col items-center justify-start p-4 space-y-4 mt-20 overflow-y-auto overflow-x-hidden">
-      <div className="w-screen max-w-full flex flex-col space-y-4">
-        {/* First Row */}
-        <div className="flex space-x-4 w-full h-[25vh] min-h-[180px]">
-          {/* Left Section */}
-          <div className="w-1/4 h-full flex flex-col space-y-4">
-            {firstRowSections.slice(0, 2).map((section, index) => (
-              <div
-                key={index}
-                className={getBoxClasses("flex-grow flex flex-col items-center justify-center p-4 rounded-2xl backdrop-blur-2xl relative overflow-hidden min-h-[80px]")}
-              >
-                <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-                {section.image && (
-                  <div className="absolute inset-0 w-full h-full">
-                    <Image
-                      src={section.image}
-                      alt={section.title || "Section"}
-                      fill
-                      style={getImageStyle()}
-                      className="z-0 object-cover"
-                      priority
-                    />
-                  </div>
-                )}
-                <div className="relative z-10 text-center">
-                  {section.title && (
-                    <h2 className="text-4xl lg:text-7xl font-bold mb-2 text-white text-left">
-                      {section.title}
-                    </h2>
-                  )}
-                  {section.description && (
-                    <p className="text-white/80 text-left">
-                      {section.description}
-                    </p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-          {/* Center Section */}
-          <div className="w-1/2 h-full">
-            <div className={getBoxClasses("h-full flex flex-col items-center justify-center p-4 rounded-2xl backdrop-blur-2xl relative overflow-hidden")}>
-              <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-              {firstRowSections[2].image && (
-                <div className="absolute inset-0 w-full h-full">
-                  <Image
-                    src={firstRowSections[2].image}
-                    alt={firstRowSections[2].title || "Section"}
-                    fill
-                    style={getImageStyle()}
-                    className="z-0 object-cover"
-                  />
-                </div>
-              )}
-              <div className="relative z-10 text-center">
-                {firstRowSections[2].title && (
-                  <h2 className="text-xl font-bold mb-2 text-white text-left">
-                    {firstRowSections[2].title}
-                  </h2>
-                )}
-                {firstRowSections[2].description && (
-                  <p className="text-white/80 text-left">
-                    {firstRowSections[2].description}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-          {/* Right Section */}
-          <div className="w-1/4 h-full">
-            <div className={getBoxClasses("h-full flex flex-col items-center justify-center p-4 rounded-2xl backdrop-blur-2xl relative overflow-hidden")}>
-              <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-              {firstRowSections[3].image && (
-                <div className="absolute inset-0 w-full h-full">
-                  <Image
-                    src={firstRowSections[3].image}
-                    alt={firstRowSections[3].title || "Section"}
-                    fill
-                    style={getImageStyle()}
-                    className="z-0 object-cover"
-                  />
-                </div>
-              )}
-              <div className="relative z-10 text-center">
-                {firstRowSections[3].title && (
-                  <h2 className="text-xl font-bold mb-2 text-white text-left">
-                    {firstRowSections[3].title}
-                  </h2>
-                )}
-                {firstRowSections[3].description && (
-                  <p className="text-white/80 text-left">
-                    {firstRowSections[3].description}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Second Row */}
-        <div className="flex space-x-4 w-full h-[45vh] min-h-[300px]">
-          {/* Left Column */}
-          <div className="w-1/4 flex flex-col space-y-4 h-full">
-            <div className="flex space-x-4 h-1/2 min-h-[140px]">
-              {secondRowLeftTopSections.map((section, index) => (
-                <div
-                  key={index}
-                  className={getBoxClasses("flex-grow flex flex-col items-center justify-center p-4 rounded-2xl backdrop-blur-2xl relative overflow-hidden")}
-                >
-                  <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-                  {section.image && (
-                    <div className="absolute inset-0 w-full h-full">
-                      <Image
-                        src={section.image}
-                        alt={section.title || "Section"}
-                        fill
-                        style={getImageStyle()}
-                        className="z-0 object-cover"
-                        priority
-                      />
-                    </div>
-                  )}
-                  <div className="relative z-10 text-center">
-                    {section.title && (
-                      <h2 className="invisible-text">
-                        {section.title}
-                      </h2>
-                    )}
-                    {section.description && (
-                      <p className="invisible-text">
-                        {section.description}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="h-1/2 min-h-[140px]">
-              {secondRowLeftBottomSections.map((section, index) => (
-                <div
-                  key={index}
-                  className={getBoxClasses("h-full flex flex-col items-center justify-center p-4 rounded-2xl backdrop-blur-2xl relative overflow-hidden")}
-                >
-                  <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-                  {section.image && (
-                    <div className="absolute inset-0 w-full h-full">
-                      <Image
-                        src={section.image}
-                        alt={section.title || "Section"}
-                        fill
-                        style={getImageStyle()}
-                        className="z-0 object-cover"
-                      />
-                    </div>
-                  )}
-                  <div className="relative z-10 text-center">
-                    {section.title && (
-                      <h2 className="text-xl font-bold mb-2 text-white">
-                        {section.title}
-                      </h2>
-                    )}
-                    {section.description && (
-                      <p className="text-white/80">
-                        {section.description}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Center Section */}
-          <div className={getBoxClasses("w-1/2 flex flex-col items-center justify-center p-4 rounded-2xl backdrop-blur-2xl relative overflow-hidden")}>
-            <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-            <h2 className="text-xl font-bold mb-2 relative z-10 text-white">
-              Wide Rectangle
-            </h2>
-            <p className="text-center relative z-10 text-white/80">
-              Center section - Wide rectangle
-            </p>
-          </div>
-
-          {/* Right Column */}
-          <div className="w-1/4 flex flex-col space-y-4 h-full">
-            {secondRowRightSections.map((section, index) => (
-              <div
-                key={index}
-                className={getBoxClasses("flex-grow flex flex-col items-center justify-center p-4 rounded-2xl backdrop-blur-2xl relative overflow-hidden min-h-[140px]")}
-              >
-                <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-                {section.image && (
-                  <div className="absolute inset-0 w-full h-full">
-                    <Image
-                      src={section.image}
-                      alt={section.title || "Section"}
-                      fill
-                      style={getImageStyle()}
-                      className="z-0 object-cover"
-                    />
-                  </div>
-                )}
-                <div className="relative z-10 text-center">
-                  {section.title && (
-                    <h2 className="text-xl font-bold mb-2 text-white">
-                      {section.title}
-                    </h2>
-                  )}
-                  {section.description && (
-                    <p className="text-white/80">
-                      {section.description}
-                    </p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Third Row */}
-        <div className="flex space-x-4 w-full h-[15vh] min-h-[120px]">
-          {thirdRowSections.map((section, index) => (
-            <div
-              key={index}
-              className={getBoxClasses("w-1/4 flex flex-col items-center justify-center p-4 rounded-2xl backdrop-blur-2xl relative overflow-hidden")}
-            >
-              <div className={`absolute inset-0 ${getGradientClasses()} pointer-events-none`}></div>
-              {section.image && (
-                <div className="absolute inset-0 w-full h-full">
-                  <Image
-                    src={section.image}
-                    alt={section.title || "Section"}
-                    fill
-                    style={getImageStyle()}
-                    className="z-0 object-cover"
-                  />
-                </div>
-              )}
-              <div className="relative z-10 text-center">
-                <h2 className="text-xl font-bold mb-2 text-white">
-                  {section.title}
-                </h2>
-                <p className="text-white/80">
-                  {section.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+  const [leftRef, leftInView] = useInViewAnimation();
+  const [rightRef, rightInView] = useInViewAnimation();
 
   return (
-    <>
-      <DesktopLayout />
-      <MobileLayout />
-    </>
+    <div className="flex items-center justify-center w-screen min-h-[100vh] px-4 sm:px-6 py-4 bg-transparent">
+      <div className="flex flex-col md:flex-row gap-6 w-full max-w-6xl mx-auto">
+        {/* Left Block (full image, 40%) */}
+        <div
+          ref={leftRef as React.RefObject<HTMLDivElement>}
+          className={`md:w-[35%] w-full min-h-[300px] xs:min-h-[320px] sm:min-h-[360px] md:min-h-[480px] flex items-center justify-center p-0 ${GLASS_BG} transition-all duration-700 ease-out transform ${leftInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'} mx-2 xs:mx-4 sm:mx-6`}
+        >
+          <Image
+            src={leftBlock.image}
+            alt={leftBlock.alt}
+            fill
+            className="object-cover w-full h-full rounded-2xl"
+            style={{ minHeight: 'inherit' }}
+            priority
+          />
+        </div>
+        {/* Right Block (about text, 60%) */}
+        <div
+          ref={rightRef as React.RefObject<HTMLDivElement>}
+          className={`md:w-[65%] w-full min-h-[300px] xs:min-h-[320px] sm:min-h-[360px] md:min-h-[480px] flex flex-col justify-center items-center p-4 sm:p-6 md:p-8 lg:p-10 ${GLASS_BG} transition-all duration-700 ease-out transform ${rightInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'} mx-2 xs:mx-4 sm:mx-6`}
+        >
+          <div className="relative z-10 w-full text-center md:text-left">
+            <h2
+              className={`text-lg xs:text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3 md:mb-4 lg:mb-6 ${
+                isDarkMode ? "text-white" : "text-black"
+              }`}
+            >
+              About Me
+            </h2>
+            <p
+              className={`text-xs xs:text-sm sm:text-base md:text-lg leading-relaxed ${
+                isDarkMode ? "text-white/70" : "text-black"
+              }`}
+            >
+              {aboutText}
+            </p>
+            <div className="mt-10 text-center">
+              <Link
+                href="/blog"
+                className={`
+      inline-block px-6 py-3 rounded-full
+      text-sm sm:text-base font-medium
+      transition-all duration-300
+      before:content-[''] before:absolute before:inset-0 
+      before:backdrop-blur-lg
+      before:border before:rounded-full before:shadow-lg
+      relative overflow-hidden
+      transform hover:-translate-y-0.5
+      ${
+        isDarkMode
+          ? "text-yellow-400 before:bg-gradient-to-r before:from-yellow-700/20 before:to-amber-800/20 before:border-yellow-500/30 hover:before:border-yellow-400/40"
+          : "text-gray-800 before:bg-black/5 before:border-black/30 hover:before:bg-black/10 hover:before:border-black/40"
+      }
+    `}
+              >
+                <span className="relative z-10">View All Blogs</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
