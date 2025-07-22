@@ -7,6 +7,7 @@ import Header from "../../components/Header";
 import BackgroundImages from "../../components/BackgroundImages";
 import { useTheme } from "../../ThemeContext";
 import ReactMarkdown from "react-markdown";
+import Footer from "../../components/Footer";
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const { isDarkMode } = useTheme();
@@ -72,6 +73,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             </Link>
           </div>
       </div>
+      {/* Add 20 <br /> elements for spacing */}
+      {Array.from({ length: 20 }).map((_, i) => <br key={i} />)}
+      <Footer />
     </div>
   );
 }

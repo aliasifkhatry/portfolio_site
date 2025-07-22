@@ -5,6 +5,7 @@ import BlogCard from "../components/BlogCard";
 import Header from "../components/Header";
 import BackgroundImages from "../components/BackgroundImages";
 import { useTheme } from "../ThemeContext";
+import Footer from "../components/Footer";
 
 export default function BlogIndex() {
   const { isDarkMode } = useTheme();
@@ -24,6 +25,9 @@ export default function BlogIndex() {
           ))}
         </div>
       </div>
+      {/* Add 20 <br /> elements for spacing */}
+      {Array.from({ length: 20 }).map((_, i) => <br key={i} />)}
+      <Footer />
     </main>
   );
 }
