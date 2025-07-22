@@ -234,15 +234,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Contact Section */}
-      <section
-        id="contact"
-        className="min-h-screen flex items-center justify-center z-10"
-      >
-        <Contact />
-      </section>
-
+{/* Add 20 <br /> elements for spacing */}
+      {Array.from({ length: 20 }).map((_, i) => <br key={i} />)}
       <Footer />
     </main>
   );
