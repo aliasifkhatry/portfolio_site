@@ -132,7 +132,7 @@ export default function Home() {
         animate="visible"
       >
         <motion.h2
-          className="mt-2 sm:mt-3 md:mt-4 text-3xl sm:text-base md:text-5xl filter grayscale"
+          className="mt-2 sm:mt-3 md:mt-4 text-2xl sm:text-base md:text-5xl filter grayscale"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.7 }}
