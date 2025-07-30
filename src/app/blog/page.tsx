@@ -21,7 +21,7 @@ export default function BlogIndex() {
         }`}>Blog</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((blog) => (
-            <BlogCard key={blog.slug} blog={blog} />
+            <BlogCard key={blog.mediumUrl} blog={blog} />
           ))}
         </div>
       </div>

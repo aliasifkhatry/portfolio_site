@@ -18,7 +18,8 @@ const About = () => {
   };
 
   // Right block: about text
-  const aboutText = `I'm Ali Asif, a passionate student, developer, designer, and Notion enthusiast. I love building beautiful, functional web experiences and exploring new technologies. My journey is driven by curiosity and a desire to create things that make life easier and more enjoyable. Welcome to my portfolio!`;
+  const aboutText = `Welcome to my site. I'm Ali Asif, from Karachi, Pakistan. I'm a student who loves everything about tech. I have interests in Arts, Design, and creating stuff. I also am fascinated by Notion, and trying to grow into the community and build some good stuff in it. Want to read my full story? Click the button below.
+`;
 
   // Animation hooks for scroll-in effect
   function useInViewAnimation(threshold = 0.2) {
@@ -78,8 +79,10 @@ const About = () => {
               {aboutText}
             </p>
             <div className="mt-10 text-center">
-              <Link
-                href="/blog"
+              <a
+                href="https://medium.com/@aliasifkhatri/lets-see-if-i-can-write-who-i-am-11755b80ed87"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`
       inline-block px-6 py-3 rounded-full
       text-sm sm:text-base font-medium
@@ -96,8 +99,8 @@ const About = () => {
       }
     `}
               >
-                <span className="relative z-10">View All Blogs</span>
-              </Link>
+                <span className="relative z-10">Read the Full About Me Blog</span>
+              </a>
             </div>
           </div>
         </div>
