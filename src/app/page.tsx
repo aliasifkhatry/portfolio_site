@@ -207,7 +207,7 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {recentBlogs.map((blog) => (
-              <BlogCard key={blog.slug} blog={blog} />
+              <BlogCard key={blog.mediumUrl} blog={blog} />
             ))}
           </div>
           <div className="mt-10 text-center">
