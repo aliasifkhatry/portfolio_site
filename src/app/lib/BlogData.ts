@@ -10,6 +10,9 @@ const blogPosts: BlogPost[] = [
   },
   {
     mediumUrl: "https://medium.com/@aliasifkhatri/my-first-model-un-experience-78f45c1bb0e7"
+  },
+  {
+    mediumUrl: "https://medium.com/@aliasifkhatri/ios-26-a-close-view-and-a-concern-1ffe45a4a608"
   }
 ];
 
