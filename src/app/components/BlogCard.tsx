@@ -56,12 +56,12 @@ export default function BlogCard({ blog }: BlogCardProps) {
         <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true"></div>
 
         {meta?.image && (
-          <div className="relative aspect-video w-full flex-shrink-0">
+          <div className="relative aspect-video w-full flex-shrink-0 overflow-hidden">
             <Image
               src={meta.image}
               alt={meta.title}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
               priority={false}
               sizes="(max-width: 640px) 90vw, (max-width: 1024px) 40vw, 30vw"
             />
