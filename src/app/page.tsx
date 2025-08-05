@@ -24,7 +24,7 @@ export default function Home() {
   const [isHovering, setIsHovering] = useState(false);
   const [isCursorHidden, setIsCursorHidden] = useState(false);
   const { isDarkMode } = useTheme();
-  const recentBlogs = blogPosts.slice(0, 3);
+  const recentBlogs = [...blogPosts].reverse().slice(0, 3);
 
   // Animation variants for hero section reveal
   const heroVariants = {
