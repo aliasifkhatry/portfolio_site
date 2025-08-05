@@ -25,6 +25,12 @@ const blogPosts: BlogPost[] = [
     title: "iOS 26: A Close View and a Concern",
     description: "First few lines or summary of your blog goes here.",
     image: "/blog-covers/blogcover3.webp"
+  },
+  {
+    mediumUrl: "https://medium.com/@aliasifkhatri/new-developers-and-ai-3b7ec811408d",
+    title: "New Developers and AI",
+    description: "First few lines or summary of your blog goes here.",
+    image: "/blog-covers/blogcover4.webp"
   }
 ];
 
