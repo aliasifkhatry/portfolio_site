@@ -32,6 +32,13 @@ const blogPosts: BlogPost[] = [
     description: "First few lines or summary of your blog goes here.",
     image: "/blog-covers/blogcover4.webp"
   }
+  ,
+  {
+    mediumUrl: "https://medium.com/@aliasifkhatri/winning-the-best-delegate-in-my-first-unsc-b5b39daf84af",
+    title: "Winning the Best Delegate in My First UNSC",
+    description: "On 13th and 14th of September, i got a chance to participate in Achieving Leaders Model United Nations (ALMUN) hosted at Indus University Karachi.",
+    image: "/blog-covers/blogcover5.webp"
+  }
 ];
 
 export default blogPosts;
