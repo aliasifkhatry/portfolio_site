@@ -21,12 +21,6 @@ const blogPosts: BlogPost[] = [
     image: "/blog-covers/blogcover2.webp"
   },
   {
-    mediumUrl: "https://medium.com/@aliasifkhatri/the-paradox-of-faking-7bb9bb3089ac",
-    title: "The Paradox of Faking",
-    description: "Throughout the history of mankind, the society has evolved and so has the “societal acceptance standard”, well I wasn't a part of that history, but yes, being a part of this current society we can observe a weird paradox today.",
-    image: "/blog-covers/blogcover6.webp"
-  },
-  {
     mediumUrl: "https://medium.com/@aliasifkhatri/ios-26-a-close-view-and-a-concern-1ffe45a4a608",
     title: "iOS 26: A Close View and a Concern",
     description: "After signing up for the beta program of Apple, I was able to download iOS 26 on my phone. There were many new things, many old ones, just rephrased to look new and some unnecessary things.",
@@ -43,7 +37,14 @@ const blogPosts: BlogPost[] = [
     title: "Winning the Best Delegate in My First UNSC",
     description: "On 13th and 14th of September, i got a chance to participate in Achieving Leaders Model United Nations (ALMUN) hosted at Indus University Karachi.",
     image: "/blog-covers/blogcover5.webp"
+  },
+  {
+    mediumUrl: "https://medium.com/@aliasifkhatri/the-paradox-of-faking-7bb9bb3089ac",
+    title: "The Paradox of Faking",
+    description: "Throughout the history of mankind, the society has evolved and so has the “societal acceptance standard”, well I wasn't a part of that history, but yes, being a part of this current society we can observe a weird paradox today.",
+    image: "/blog-covers/blogcover6.webp"
   }
 ];
+
 
 export default blogPosts;
