@@ -44,6 +44,13 @@ const blogPosts: BlogPost[] = [
     description: "Throughout the history of mankind, the society has evolved and so has the “societal acceptance standard”, well I wasn't a part of that history, but yes, being a part of this current society we can observe a weird paradox today.",
     image: "/blog-covers/blogcover6.webp"
   }
+  ,
+  {
+    mediumUrl: "https://medium.com/@aliasifkhatri/the-global-bipolar-sort-algorithm-8024b8bb23b6",
+    title: "The Global Bipolar Sort Algorithm",
+    description: "Welcome to the 21st Century, where the world progresses towards a “modern” future, “responsible” power and “innovation”.",
+    image: "/blog-covers/blogcover7.webp"
+  }
 ];
 
 
