@@ -18,7 +18,7 @@ const About = () => {
   };
 
   // Right block: about text
-  const aboutText = `Welcome to my site. I'm Ali Asif, from Karachi, Pakistan. I'm a student who loves everything about tech. I have interests in Arts, Design, and creating stuff. I also am fascinated by Notion, and trying to grow into the community and build some good stuff in it. Want to read my full story? Click the button below.
+  const aboutText = `Hello there, welcome to my small site! I am Ali Asif, from Karachi, Pakistan. Currently a student, who loves tech, arts, current affairs and somehow now loving public speaking. This is a little space I have designed and created to have myself on the web (well who would not love that). You can also read my blogs below, (which obviously I am totally bad at writing, but at least we try).
 `;
 
   // Animation hooks for scroll-in effect
@@ -53,7 +53,7 @@ const About = () => {
             src={leftBlock.image}
             alt={leftBlock.alt}
             fill
-            className="object-cover w-full h-full rounded-2xl"
+            className="object-cover w-full h-full rounded-3xl pb-0.5"
             style={{ minHeight: 'inherit' }}
             priority
           />
@@ -77,6 +77,14 @@ const About = () => {
               }`}
             >
               {aboutText}
+            </p>
+            
+            <p
+              className={`mt-5 text-[8px] sm:text-[11px]  leading-tight ${
+                isDarkMode ? "text-white/70" : "text-black"
+              }`}
+            >
+              (also I am not that scary as I look in the picture irl)
             </p>
             <div className="mt-10 text-center">
               <a
